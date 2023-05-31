@@ -1,0 +1,40 @@
+
+name: Build and Release Task Extension
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: Publish Azure DevOps Dev Plugin
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      working-directory: carbonetesTask
+      run: |
+        npm install
+        sudo npm install -g tfx-cli semver
+
+    - name: Compile Javascript
+      working-directory: carbonetesTask
+      run: |
+        tsc
+        mv task.release.json task.json
+
+    - name: Bump version in Manifest
+      run: |
+        current_version=$(tfx extension show -t ${{ secrets.AzureMarketplaceToken }} --publisher SairenChristianBuerano --extension-id jacked --output json | jq '.versions | .[0].version')
+        current_version=$(if [ $current_version == "null" ]; then echo "1.0.0"; else echo $current_version; fi)
+        current_version=$(echo $current_version | sed -e 's/^"//' -e 's/"$//')
+        new_version=$(semver -i $current_version)
+        json=$(cat vss-extension.json | jq --arg v "${new_version}" '.version = $v')
+        echo $json > vss-extension.json
+
+    - name: Publish Plugin
+      run: |
+        tfx extension publish -t ${{ secrets.AzureMarketplaceToken }} --manifests vss-extension.json

@@ -1,0 +1,17 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script:
+- task: CarbonetesComprehensiveAnalysis@1
+  inputs:
+    registryUri: '367390716521.dkr.ecr.us-west-2.amazonaws.com'
+    repoImageTag: 'carbo/license-finder-api:latest'
+    username: 'admin@hoolisoftware.com'
+    password: '!Carbonetes99'
+    timeout: 500
+    failOnPolicy: false
+

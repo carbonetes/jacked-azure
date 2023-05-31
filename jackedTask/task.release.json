@@ -1,0 +1,93 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "jacked",
+    "name": "Jacked",
+    "friendlyName": "Jacked",
+    "description": "Vulnerability Scanner",
+    "helpUrl": "https://carbonetes.com/features",
+    "helpMarkDown": "[Learn more about this task](https://marketplace.visualstudio.com/items?itemName=Carbonetes.carbonetes-comprehensive-analysis)",
+    "category": "Utility",
+    "author": "SairenChristianBuerano",
+    "version": {
+        "Major": 1,
+        "Minor": 5,
+        "Patch": 7
+    },
+    "visibility": ["Build", "Release"],
+    "instanceNameFormat": "Analyzing image with Carbonetes Comprehensive Analysis",
+    "groups": [
+        {
+            "name": "required",
+            "displayName": "Required Parameters",
+            "isExpanded": true
+        },
+        {
+            "name": "optional",
+            "displayName": "Optional Parameters",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "scanType",
+            "type": "string",
+            "label": "Scan Type",
+            "defaultValue": "image",
+            "required": true,
+            "helpMarkDown": "Specify if image, tar, directory."
+        },
+        {
+            "name": "scanName",
+            "type": "string",
+            "label": "Scan",
+            "defaultValue": "ubuntu",
+            "required": true,
+            "helpMarkDown": "Specify the image name, tar file path, or directory path."
+        },
+        {
+            "name": "failCriteria",
+            "type": "string",
+            "label": "Fail Criteria",
+            "defaultValue": "medium",
+            "required": true,
+            "helpMarkDown": "Select a threshold that will fail the build when equal to or above the severity found in the results."
+        },
+        {
+            "name": "ignoreCves",
+            "type": "string",
+            "label": "Ignore CVEs",
+            "defaultValue": "cve-2023-2464,cve-2022-3423",
+            "required": false,
+            "helpMarkDown": "Specify the CVEs to ignore."
+        },
+        {
+            "name": "ignorePackageNames",
+            "type": "string",
+            "label": "Ignore Package Names",
+            "defaultValue": "package1,package2",
+            "required": false,
+            "helpMarkDown": "Specify the package names to ignore."
+        },
+        {
+            "name": "skipDbUpdate",
+            "type": "boolean",
+            "label": "Skip Database Update",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "Skip Database Update Checking."
+        },
+        {
+            "name": "skipFail",
+            "type": "boolean",
+            "label": "Skip Fail Build",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "Restrict the plugin from failing the build based on the assessment result."
+        }
+    ],
+    "execution": {
+        "Node10": {
+            "target": "index.js"
+        }
+    }
+}

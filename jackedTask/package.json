@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^20.2.3",
+    "sync-request": "^6.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "azure-pipelines-task-lib": "^4.3.1"
+  }
+}

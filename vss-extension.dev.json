@@ -1,0 +1,70 @@
+{
+    "manifestVersion": 1,
+    "id": "jacked-dev",
+    "name": "Jacked (Dev)",
+    "version": "1.0.0",
+    "publisher": "SairenChristianBuerano",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Vulnerability Scanner",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "tags": [
+        "Container",
+        "Security",
+        "Scan",
+        "Docker",
+        "Image",
+        "Utility Task"
+    ],
+    "icons": {
+        "default": "images/logo.png"
+    },
+    "files": [
+        {
+            "path": "carbonetesTask"
+        }
+    ],
+    "content": {
+        "details": {
+          "path": "overview.md"
+        },
+        "license": {
+          "path": "LICENSE"
+        }
+    },
+    "links": {
+        "home": {
+            "uri": "https://carbonetes.com"
+        },
+        "getstarted": {
+            "uri": "https://carbonetes.com/features/"
+        },
+        "learn": {
+            "uri": "https://carbonetes.com/knowledge-center/"
+        }
+    },
+    "contributions": [
+        {
+            "id": "jacked-dev",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "jackedTask",
+                "iconAsset": "Jacked.jacked/images/logo.png",
+                "includesData": {
+                    "assets": [
+                        "Jacked.jacked/images/logo.png"
+                    ]
+                }
+            }
+        }
+    ],
+    "public" : false
+}
