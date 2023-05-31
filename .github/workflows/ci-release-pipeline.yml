@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install Dependencies
-      working-directory: carbonetesTask
+      working-directory: jackedTask
       run: |
         npm install
         sudo npm install -g tfx-cli semver
