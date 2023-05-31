@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-    "id": "jacked",
+    "id": "bcb8295f-e6af-49cd-8d48-133e92716b95",
     "name": "Jacked",
     "friendlyName": "Jacked",
     "description": "Vulnerability Scanner",
