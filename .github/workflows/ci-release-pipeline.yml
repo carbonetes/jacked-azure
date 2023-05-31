@@ -21,7 +21,7 @@ jobs:
         sudo npm install -g tfx-cli semver
 
     - name: Compile Javascript
-      working-directory: carbonetesTask
+      working-directory: jackedTask
       run: |
         tsc
         mv task.release.json task.json
