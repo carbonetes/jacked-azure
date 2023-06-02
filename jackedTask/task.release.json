@@ -11,7 +11,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 0
+        "Patch": 31
     },
     "visibility": ["Build", "Release"],
     "instanceNameFormat": "Analyzing image with Carbonetes Comprehensive Analysis",
