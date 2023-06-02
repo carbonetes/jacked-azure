@@ -2,7 +2,7 @@ import { spawnSync } from 'child_process';
 
 // Function to execute the 'jacked' command
 export function executeJackedCommand(command: string, successMessage: string, failureMessage: string): void {
-    const jackedProcess = spawnSync(command);
+    const jackedProcess = spawnSync("jacked");
     if (jackedProcess.status === 0) {
         console.log(successMessage);
     } else {
