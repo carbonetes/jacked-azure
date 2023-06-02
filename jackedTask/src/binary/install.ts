@@ -8,18 +8,20 @@ const installDir = '/usr/local/bin';
 export function downloadAndExecuteScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         // Download the shell script using curl
-        exec(`curl -sSfL ${scriptUrl} --output install.sh`, (curlErr) => {
+        exec(`curl -sSfL ${scriptUrl} --output install.sh`, (curlErr, curlStdout, curlStderr) => {
             if (curlErr) {
-                console.error('Error downloading shell script:', curlErr);
-                reject(curlErr);
+                const errorMessage = `Error downloading shell script: ${curlErr}\n${curlStderr}`;
+                console.error(errorMessage);
+                reject(errorMessage);
                 return;
             }
 
             // Execute the downloaded shell script using sh
-            exec(`sh install.sh -d ${installDir}`, (shErr) => {
+            exec(`sh install.sh -d ${installDir}`, (shErr, shStdout, shStderr) => {
                 if (shErr) {
-                    console.error('Error executing shell script:', shErr);
-                    reject(shErr);
+                    const errorMessage = `Error executing shell script: ${shErr}\n${shStderr}`;
+                    console.error(errorMessage);
+                    reject(errorMessage);
                     return;
                 }
 
