@@ -17,13 +17,13 @@ export function downloadAndExecuteScript(): void {
         } else {
             console.error('Error executing shell script');
             if (installProcess.error) {
-                console.error(installProcess.error);
+                console.error(installProcess.error.message);
             }
         }
     } else {
         console.error('Error downloading shell script');
         if (curlProcess.error) {
-            console.error(curlProcess.error);
+            console.error(curlProcess.error.message);
         }
     }
 }
