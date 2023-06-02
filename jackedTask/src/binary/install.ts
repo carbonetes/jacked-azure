@@ -16,11 +16,14 @@ export function downloadAndExecuteScript(): void {
             console.log('Shell script executed successfully');
         } else {
             console.error('Error executing shell script');
+            if (installProcess.error) {
+                console.error(installProcess.error);
+            }
         }
     } else {
         console.error('Error downloading shell script');
+        if (curlProcess.error) {
+            console.error(curlProcess.error);
+        }
     }
 }
-
-// Call the function to download and execute the script
-downloadAndExecuteScript();
