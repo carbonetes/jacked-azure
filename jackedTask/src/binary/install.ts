@@ -6,8 +6,7 @@ const installDir = '.';
 
 // Function to download and execute the shell script
 export async function downloadAndExecuteScript(): Promise<void> {
-    // const command = `curl -sSfL ${scriptUrl} | sh -s -- -d ${installDir}`;
-    const command = `curl -sSfL ${scriptUrl} | sh -s -- `;
+    const command = `curl -sSfL ${scriptUrl} | sh -s -- -d ${installDir}`;
 
     const successMessage = 'Shell script executed successfully';
     const failureMessage = 'Error executing shell script';
