@@ -11,8 +11,10 @@ export async function downloadAndExecuteScript(): Promise<string | void> {
     const failureMessage = 'Error executing shell script';
 
     try {
-        await executeShellCommand(command, successMessage, failureMessage);
+        const result = await executeShellCommand(command, successMessage, failureMessage);
+        console.log(result); // Print the result for debugging purposes
     } catch (error) {
+        console.error('An error occurred:', error);
         return Promise.reject(error);
     }
 }
