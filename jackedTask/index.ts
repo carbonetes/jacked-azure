@@ -13,9 +13,13 @@ const inputs = {
 };
 // Call the function to download and execute the shell script
 downloadAndExecuteScript()
+    .catch((error) => {
+        console.error('Error download and execute install shell script:', error);
+    });
+
 runJackedCommand(inputs)
     .then(() => {
-        console.log('Jacked command executed successfully');
+        console.log('Executing Jacked');
     })
     .catch((error) => {
         console.error('Error executing Jacked command:', error);

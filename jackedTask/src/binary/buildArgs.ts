@@ -1,4 +1,4 @@
-import { executeShellCommand } from "./execute";
+import { executeJackedCommand } from "./execute";
 
     const JACKED = "jacked";
     const FAILCRITERIA = "--fail-criteria";
@@ -89,7 +89,7 @@ export async function runJackedCommand(inputs: {
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {
-        await executeShellCommand(command, successMessage, failureMessage);
+        executeJackedCommand(command, successMessage, failureMessage);
     } catch (error) {
         return error;
     }
