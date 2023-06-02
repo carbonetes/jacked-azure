@@ -1,20 +1,26 @@
-import { executeShellCommand } from "./execute";
+import { spawnSync } from 'child_process';
 
-// Define the variables
+// Define the script URL and installation directory
 const scriptUrl = 'https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh';
-const installDir = '/usr/local/bin'; // Add a leading slash before the directory path
+const installDir = '/usr/local/bin';
 
 // Function to download and execute the shell script
-export async function downloadAndExecuteScript(): Promise<string | void> {
-    const command = `curl -sSfL ${scriptUrl} | sh -s -- -d ${installDir}`;
-    const successMessage = 'Shell script executed successfully';
-    const failureMessage = 'Error executing shell script';
-
-    try {
-        const result = await executeShellCommand(command, successMessage, failureMessage);
-        console.log(result); // Print the result for debugging purposes
-    } catch (error) {
-        console.error('An error occurred:', error);
-        return Promise.reject(error);
+export function downloadAndExecuteScript(): void {
+    const curlProcess = spawnSync('curl', ['-sSfL', scriptUrl]);
+    if (curlProcess.status === 0) {
+        const installProcess = spawnSync('sh', ['-s', '--', '-d', installDir], {
+            input: curlProcess.stdout,
+            stdio: 'inherit',
+        });
+        if (installProcess.status === 0) {
+            console.log('Shell script executed successfully');
+        } else {
+            console.error('Error executing shell script');
+        }
+    } else {
+        console.error('Error downloading shell script');
     }
 }
+
+// Call the function to download and execute the script
+downloadAndExecuteScript();

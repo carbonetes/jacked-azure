@@ -13,19 +13,10 @@ const inputs = {
 };
 // Call the function to download and execute the shell script
 downloadAndExecuteScript()
-    .then(async (result) => {
-        if (typeof result === 'string') {
-            console.error('An error occurred:', result);
-        } else {
-            // Handle success
-            try {
-                // Run Jacked
-                await runJackedCommand(inputs);
-            } catch (error) {
-                console.error('An error occurred:', error);
-            }
-        }
+runJackedCommand(inputs)
+    .then(() => {
+        console.log('Jacked command executed successfully');
     })
     .catch((error) => {
-        console.error('An error occurred:', error);
+        console.error('Error executing Jacked command:', error);
     });
