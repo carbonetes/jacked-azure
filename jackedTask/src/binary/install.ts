@@ -19,7 +19,7 @@ export function downloadAndExecuteScript(): Promise<void> {
             // Execute the downloaded shell script using sh
             exec(`sh install.sh -d ${installDir}`, (shErr, shStdout, shStderr) => {
                 if (shErr) {
-                    const errorMessage = `Error executing shell script: ${shErr}\n${shStderr}`;
+                    const errorMessage = `Error executing shell script: ${shErr}\n${shStdout}\n${shStderr}`;
                     console.error(errorMessage);
                     reject(errorMessage);
                     return;
