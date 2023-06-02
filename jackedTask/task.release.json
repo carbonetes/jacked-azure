@@ -10,8 +10,8 @@
     "author": "SairenChristianBuerano",
     "version": {
         "Major": 1,
-        "Minor": 5,
-        "Patch": 7
+        "Minor": 0,
+        "Patch": 0
     },
     "visibility": ["Build", "Release"],
     "instanceNameFormat": "Analyzing image with Carbonetes Comprehensive Analysis",

@@ -2,7 +2,7 @@ import { executeShellCommand } from "./execute";
 
 // Define the variables
 const scriptUrl = 'https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh';
-const installDir = '/usr/local/bin';
+const installDir = '.';
 
 // Function to download and execute the shell script
 export async function downloadAndExecuteScript(): Promise<void> {
