@@ -1,14 +1,22 @@
-import { spawnSync } from 'child_process';
+import { exec, ExecOptions } from 'child_process';
 
-// Function to execute the 'jacked' command
-export function executeJackedCommand(command: string, successMessage: string, failureMessage: string): void {
-    const jackedProcess = spawnSync(command, { shell: true });
+export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
+    const execOptions: ExecOptions = {
+        shell: '/bin/bash',
+    };
 
-    if (jackedProcess.status === 0) {
-        console.log(jackedProcess.stdout.toString());
+    exec(command, execOptions, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`${failureMessage}: ${error.message}`);
+            return;
+        }
+
+        if (stderr) {
+            console.error(`${failureMessage}: ${stderr}`);
+            return;
+        }
+
+        console.log(stdout);
         console.log(successMessage);
-    } else {
-        console.error(`${failureMessage}: ${jackedProcess.stderr}`);
-    }
+    });
 }
-
