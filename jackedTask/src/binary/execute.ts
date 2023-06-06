@@ -2,11 +2,9 @@ import { exec, ExecOptions } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { homedir } from 'os';
-
 export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
-
 
     // Check if the 'jacked' binary file exists
     if (!fs.existsSync(jackedBinaryPath) || !fs.lstatSync(jackedBinaryPath).isFile()) {
@@ -26,6 +24,7 @@ export function executeCommand(command: string, successMessage: string, failureM
 
     const execOptions: ExecOptions = {
         shell: '/bin/bash',
+        maxBuffer: 1024 * 1024 * 10, // Set a higher value for maxBuffer (e.g., 10MB)
     };
 
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
