@@ -1,6 +1,6 @@
 import { executeJackedCommand } from "./execute";
 
-    const JACKED = "/usr/local/bin/jacked";
+    const JACKED = "jacked";
     const FAILCRITERIA = "--fail-criteria";
     const DIR = "--dir";
     const TAR = "--tar";
@@ -49,8 +49,9 @@ export async function runJackedCommand(inputs: {
                 args.push(inputs.scanName);
                 break;
             default:
-                // Handle unknown scanType case
-                console.log('Valid Input for Scan Type: image, tar, or directory');
+                // Handle image scan case
+                console.log('Performing image scan');
+                args.push(inputs.scanName);
                 break;
         }
 
