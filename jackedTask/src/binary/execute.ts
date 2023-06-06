@@ -27,8 +27,9 @@ export function executeCommand(command: string, successMessage: string, failureM
         maxBuffer: 250 * 1024 * 1024, // Set maxBuffer to 250MB
     };
 
+
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
-        if (error) {
+        if (error && error.code !== 0) {
             console.error(`${failureMessage}: ${error.message}`);
             return;
         }
@@ -38,7 +39,11 @@ export function executeCommand(command: string, successMessage: string, failureM
             return;
         }
 
-        console.log(stdout);
-        console.log(successMessage);
+        if (stdout.includes(failureMessage)) {
+            console.error(stdout.trim());
+        } else {
+            console.log(stdout.trim());
+            console.log(successMessage);
+        }
     });
 }
