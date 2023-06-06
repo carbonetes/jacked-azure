@@ -5,7 +5,7 @@ import { homedir } from 'os';
 
 export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
     const homeDir = homedir();
-    const jackedBinaryPath = path.join(homeDir, 'jacked');
+    const jackedBinaryPath = path.join(homeDir, command);
 
     // Check if the 'jacked' binary file exists
     if (!fs.existsSync(jackedBinaryPath) || !fs.lstatSync(jackedBinaryPath).isFile()) {

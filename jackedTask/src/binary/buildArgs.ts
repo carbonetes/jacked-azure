@@ -92,7 +92,7 @@ export async function runJackedCommand(inputs: {
 
     try {
 
-        executeCommand('jacked -v', successMessage, failureMessage);
+        executeCommand('command', successMessage, failureMessage);
     } catch (error) {
         return error;
     }
