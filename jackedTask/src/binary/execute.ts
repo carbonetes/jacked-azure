@@ -3,6 +3,7 @@ import { exec, ExecOptions } from 'child_process';
 export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
     const execOptions: ExecOptions = {
         shell: '/bin/bash',
+        cwd: '.'
     };
 
     exec(command, execOptions, (error, stdout, stderr) => {
