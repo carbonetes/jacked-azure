@@ -24,9 +24,7 @@ export async function runJackedCommand(inputs: {
     const args: string[] = [];
     let command: string | undefined;
 
-    // args.push(JACKED);
-
-    if (args.length > 0) {
+    if (args.length == 0) {
         
         // Scan Type
         switch (inputs.scanType) {
@@ -53,9 +51,10 @@ export async function runJackedCommand(inputs: {
                 args.push(inputs.scanName);
                 break;
         }
-        // CI MODE
-        args.push(CIMODE);
 
+        // CI Mode
+        args.push(CIMODE);
+        
         // Skip DB Update
         if (inputs.skipDbUpdate === true) {
             args.push(SKIPDBUPDATE);
