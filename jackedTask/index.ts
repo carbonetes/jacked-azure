@@ -1,7 +1,7 @@
 import input = require('azure-pipelines-task-lib/task');
-import { installHomebrew } from './src/homebrew/install';
 import { runJackedCommand } from './src/binary/buildArgs';
-import { tapRepository } from './src/homebrew/jacked';
+import { runScript } from './src/binary/install';
+import { error } from 'console';
 
 // Inputs
 const inputs = {
@@ -14,27 +14,15 @@ const inputs = {
     skipFail: Boolean(input.getInput("skipFail", false))
 };
 
-// Call the function to download and execute the shell script
-installHomebrew()
+runScript()
     .catch((error) => {
-        console.error('Error installing Homebrew:', error);
-        failBuild('Failed to install Homebrew');
+        failBuild('Failed to download and execute install shellscript');
     })
     .then(() => {
-        tapJacked();
+        runJacked();
     });
 
-function tapJacked() {
-    tapRepository()
-        .catch((error) => {
-            console.error('Error tapping repository:', error);
-            failBuild('Failed to tap repository');
-        })
-        .then(() => {
-            runJacked();
-        });
-}
-
+    
 function runJacked() {
     runJackedCommand(inputs)
         .catch((error) => {

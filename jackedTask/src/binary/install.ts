@@ -1,81 +1,44 @@
-import { spawn } from 'child_process';
+import { exec } from 'child_process';
+import { writeFile } from 'fs';
+import { promisify } from 'util';
+import axios from 'axios';
 
-// Define the script URL and installation directory
-const scriptUrl = 'https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh';
-const installDir = '/usr/local/bin';
+const writeFileAsync = promisify(writeFile);
 
-// Function to download and execute the shell script
-export function downloadAndExecuteScript(): Promise<void> {
+async function downloadFile(url: string, filePath: string): Promise<void> {
+    const response = await axios.get(url, { responseType: 'text' });
+    await writeFileAsync(filePath, response.data);
+}
+
+function executeScript(scriptPath: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        // Download the shell script using curl
-        const curlProcess = spawn('curl', ['-sSfL', scriptUrl]);
+        const installProcess = exec(`sh ${scriptPath}`);
 
-        // Error handling for the curl process
-        curlProcess.on('error', (err) => {
-            const errorMessage = `Error downloading shell script: ${err.message}`;
-            console.error(errorMessage);
-            reject(errorMessage);
+        installProcess.stderr?.on('data', (data) => {
+            console.error(data.toString());
         });
 
-        // Capture and print the output of curl
-        let curlOutput = '';
-        curlProcess.stdout.on('data', (data) => {
-            const output = data.toString();
-            curlOutput += output;
-            console.log(output);
-        });
-
-        curlProcess.stderr.on('data', (data) => {
-            const output = data.toString();
-            curlOutput += output;
-            console.error(output);
-        });
-
-        // Handling the close event of the curl process
-        curlProcess.on('close', (curlExitCode) => {
-            if (curlExitCode !== 0) {
-                const errorMessage = `Error downloading shell script. Exit code: ${curlExitCode}`;
-                console.error(errorMessage);
-                reject(errorMessage);
-                return;
-            }
-
-            // Execute the downloaded shell script using sh
-            const installProcess = spawn('sh', ['-s', '--', '-d', installDir]);
-
-            // Error handling for the install process
-            installProcess.on('error', (err) => {
-                const errorMessage = `Error executing shell script: ${err.message}`;
-                console.error(errorMessage);
-                reject(errorMessage);
-            });
-
-            // Capture and print the output of install
-            let installOutput = '';
-            installProcess.stdout.on('data', (data) => {
-                const output = data.toString();
-                installOutput += output;
-                console.log(output);
-            });
-
-            installProcess.stderr.on('data', (data) => {
-                const output = data.toString();
-                installOutput += output;
-                console.error(output);
-            });
-
-            // Handling the close event of the install process
-            installProcess.on('close', (installExitCode) => {
-                if (installExitCode !== 0) {
-                    const errorMessage = `Error executing shell script. Exit code: ${installExitCode}`;
-                    console.error(errorMessage);
-                    reject(errorMessage);
-                    return;
-                }
-
-                console.log('Shell script executed successfully');
+        installProcess.on('exit', (code) => {
+            if (code === 0) {
+                console.log('Script executed successfully');
                 resolve();
-            });
+            } else {
+                const errorMessage = `Error executing script. Exit code: ${code}`;
+                console.error(errorMessage);
+                reject(errorMessage);
+            }
         });
     });
+}
+
+export async function runScript(): Promise<void> {
+    const scriptUrl = 'https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh';
+    const scriptPath = './install.sh';
+
+    try {
+        await downloadFile(scriptUrl, scriptPath);
+        await executeScript(scriptPath);
+    } catch (error) {
+        console.error('Error running script:', error);
+    }
 }
