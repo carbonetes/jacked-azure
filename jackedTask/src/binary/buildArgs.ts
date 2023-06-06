@@ -24,7 +24,8 @@ export async function runJackedCommand(inputs: {
     const args: string[] = [];
     let command: string | undefined;
 
-    args.push(JACKED);
+    // CI MODE
+    args.push(CIMODE);
 
     if (args.length > 0) {
 
@@ -53,8 +54,6 @@ export async function runJackedCommand(inputs: {
                 args.push(inputs.scanName);
                 break;
         }
-        // CI MODE
-        args.push(CIMODE);
 
         // Skip DB Update
         if (inputs.skipDbUpdate === true) {
