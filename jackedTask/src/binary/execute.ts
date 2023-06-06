@@ -30,11 +30,13 @@ export function executeCommand(command: string, successMessage: string, failureM
 
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
 
-        if (stdout.includes('1.4.0')) {
-            console.log(stdout);
+        const output = (stdout || '') + (stderr || '');
+
+        if (output.includes('1.4.0')) {
+            console.log(output);
             console.log(successMessage);
         } else {
-            console.error(stdout);
+            console.error(output);
         }
     });
 }
