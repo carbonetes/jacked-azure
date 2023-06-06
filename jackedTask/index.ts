@@ -9,8 +9,8 @@ const inputs = {
     failCriteria: input.getInput("failCriteria", true) || "",
     ignoreCves: input.getInput("ignoreCves", false) || "",
     ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
-    skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
-    skipFail: Boolean(input.getInput("skipFail", false))
+    skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)) || false,
+    skipFail: Boolean(input.getInput("skipFail", false)) || false,
 };
 
 runScript()
