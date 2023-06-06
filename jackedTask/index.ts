@@ -1,6 +1,7 @@
-import  input                                                              =       require('azure-pipelines-task-lib/task');
-import { downloadAndExecuteScript } from './src/binary/install';
+import  input = require('azure-pipelines-task-lib/task');
+import { installHomebrew } from './src/homebrew/install';
 import { runJackedCommand } from './src/binary/buildArgs';
+import { tapRepository } from './src/homebrew/jacked';
 // Inputs
 const inputs = {
     scanType: input.getInput("scanType", true) || "",
@@ -12,15 +13,31 @@ const inputs = {
     skipFail: Boolean(input.getInput("skipFail", false))
 };
 // Call the function to download and execute the shell script
-downloadAndExecuteScript()
+installHomebrew()
     .catch((error) => {
-        console.error('Error download and execute install shell script:', error);
-    });
-
-runJackedCommand(inputs)
-    .then(() => {
-        console.log('Executing Jacked');
+        console.error('Error installing homebrew:', error);
     })
-    .catch((error) => {
-        console.error('Error executing Jacked command:', error);
+    .then(() => {
+        tapJacked()
     });
+    
+function tapJacked() {
+    tapRepository()
+        .catch((error) => {
+            console.error('Error executing Jacked command:', error);
+        }).then(() => {
+            runJacked()
+        });
+}
+
+function runJacked() {
+
+    runJackedCommand(inputs)
+        .catch((error) => {
+            console.error('Error executing Jacked command:', error);
+        })
+        .then(() => {
+            console.log('Executing Jacked');
+        });
+
+}
