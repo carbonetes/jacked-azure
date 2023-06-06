@@ -1,6 +1,6 @@
 import { executeJackedCommand } from "./execute";
 
-    const JACKED = "jacked";
+    const JACKED = "./jacked";
     const FAILCRITERIA = "--fail-criteria";
     const DIR = "--dir";
     const TAR = "--tar";
