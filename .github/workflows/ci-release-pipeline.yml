@@ -1,4 +1,3 @@
-
 name: Build and Release Task Extension
 
 on:
@@ -37,9 +36,9 @@ jobs:
 
     - name: Update Version in Task Manifest
       run: |
-        current_version=$(cat jackedTask/task.release.json | jq -r '.version')
+        current_version=$(cat ../jackedTask/task.release.json | jq -r '.version')
         new_version=$(echo $current_version | sed -E 's/([0-9]+)$/\1+1/')
-        jq '.version = $v' --arg v "$new_version" task.release.json > task.release.json.tmp && mv task.release.json.tmp task.release.json
+        jq '.version = $v' --arg v "$new_version" ../jackedTask/task.release.json > ../jackedTask/task.release.json.tmp && mv ../jackedTask/task.release.json.tmp ../jackedTask/task.release.json
 
     - name: Publish Plugin
       run: |
