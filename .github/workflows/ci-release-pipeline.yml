@@ -36,9 +36,15 @@ jobs:
 
     - name: Update Version in Task Manifest
       run: |
-        current_version=$(cat jackedTask/task.dev.json | jq -r '.version')
-        new_version=$(echo $current_version | sed -E 's/([0-9]+)$/\1+1/')
-        jq '.version = $v' --arg v "$new_version" jackedTask/task.dev.json > jackedTask/task.dev.json.tmp && mv jackedTask/task.dev.json.tmp jackedTask/task.release.json
+        current_version=$(cat jackedTask/task.release.json | jq -r '.version')
+        major=$(echo $current_version | jq '.Major')
+        minor=$(echo $current_version | jq '.Minor')
+        patch=$(echo $current_version | jq '.Patch')
+        new_major=$major
+        new_minor=$minor
+        new_patch=$(expr $patch + 1)
+        updated_version="{ \"Major\": $new_major, \"Minor\": $new_minor, \"Patch\": $new_patch }"
+        jq ".version = $updated_version" jackedTask/task.release.json > jackedTask/task.release.json.tmp && mv jackedTask/task.release.json.tmp jackedTask/task.release.json
 
     - name: Publish Plugin
       run: |
