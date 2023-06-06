@@ -25,8 +25,6 @@ function executeScript(): Promise<void> {
                 reject(errorMessage);
             }
         });
-
-
     });
 }
 

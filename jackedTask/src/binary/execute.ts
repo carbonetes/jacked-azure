@@ -1,22 +1,13 @@
-import { exec, ExecOptions } from 'child_process';
+import { exec } from 'child_process';
 
+// Function to execute the 'jacked' command
 export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
-    const execOptions: ExecOptions = {
-        shell: '/bin/bash',
-    };
-
-    exec(command, execOptions, (error, stdout, stderr) => {
+    exec(`${command}`, { cwd: __dirname }, (error, stdout, stderr) => {
         if (error) {
-            console.error(`${failureMessage}: ${error.message}`);
-            return;
-        }
-
-        if (stderr) {
             console.error(`${failureMessage}: ${stderr}`);
-            return;
+        } else {
+            console.log(stdout);
+            console.log(successMessage);
         }
-
-        console.log(stdout);
-        console.log(successMessage);
     });
 }
