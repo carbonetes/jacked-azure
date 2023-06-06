@@ -9,16 +9,24 @@ function executeScript(): Promise<void> {
             console.error(data.toString());
         });
 
-        installProcess.on('exit', (code) => {
+        installProcess.on('exit', (code, signal) => {
             if (code === 0) {
                 console.log('Script executed successfully');
+                if (installProcess.stdout) {
+                    console.log('Script output:', installProcess.stdout.toString());
+                }
                 resolve();
             } else {
-                const errorMessage = `Error executing script. Exit code: ${code}`;
+                const errorMessage = `Error executing script. Exit code: ${code}, Signal: ${signal}`;
                 console.error(errorMessage);
+                if (installProcess.stdout) {
+                    console.log('Script output:', installProcess.stdout.toString());
+                }
                 reject(errorMessage);
             }
         });
+
+
     });
 }
 
