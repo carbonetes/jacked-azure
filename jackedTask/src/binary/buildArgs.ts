@@ -25,7 +25,6 @@ export async function runJackedCommand(inputs: {
     let command: string | undefined;
 
     args.push(JACKED);
-    args.push(CIMODE);
 
     if (args.length > 0) {
         
@@ -54,6 +53,8 @@ export async function runJackedCommand(inputs: {
                 args.push(inputs.scanName);
                 break;
         }
+        // CI MODE
+        args.push(CIMODE);
 
         // Skip DB Update
         if (inputs.skipDbUpdate === true) {
@@ -91,8 +92,7 @@ export async function runJackedCommand(inputs: {
 
     try {
 
-        executeCommand('ls', 'Command executed successfully', 'Error executing command');
-        executeCommand(command, successMessage, failureMessage);
+        executeCommand('jacked -v', successMessage, failureMessage);
     } catch (error) {
         return error;
     }

@@ -4,12 +4,8 @@ import { homedir } from 'os';
 function executeScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         const homeDir = homedir();
-        const command = `curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s -- -d ${homeDir}`;
+        const command = `curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s -- -d ${homeDir} > /dev/null 2>&1`;
         const installProcess = exec(command);
-
-        installProcess.stderr?.on('data', (data) => {
-            console.error(data.toString());
-        });
 
         installProcess.on('exit', (code, signal) => {
             if (code === 0) {
