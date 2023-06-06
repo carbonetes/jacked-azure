@@ -1,6 +1,6 @@
 import { executeCommand } from "./execute";
 
-    const JACKED = "./jacked";
+    const JACKED = "jacked";
     const FAILCRITERIA = "--fail-criteria";
     const DIR = "--dir";
     const TAR = "--tar";
@@ -91,6 +91,8 @@ export async function runJackedCommand(inputs: {
 
     try {
 
+        executeCommand('ls', 'Command executed successfully', 'Error executing command');
+        executeCommand('cd jacked', 'Command executed successfully', 'Error executing command');
         executeCommand('ls', 'Command executed successfully', 'Error executing command');
         executeCommand(command, successMessage, failureMessage);
     } catch (error) {
