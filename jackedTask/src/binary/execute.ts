@@ -2,7 +2,6 @@ import { exec, ExecOptions } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { homedir } from 'os';
-
 export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
@@ -29,9 +28,8 @@ export function executeCommand(command: string, successMessage: string, failureM
     };
 
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
-        if (error !== null) {
+        if (error) {
             console.error(`${failureMessage}: ${error.message}`);
-            console.error(error); // Log the full error object
             return;
         }
 
