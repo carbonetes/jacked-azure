@@ -29,14 +29,21 @@ export function executeCommand(command: string, successMessage: string, failureM
 
 
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
+        if (error && error.code !== 0) {
+            console.error(`${failureMessage}: ${error.message}`);
+            return;
+        }
 
         const output = (stdout || '') + (stderr || '');
 
-        if (output.includes('1.4.0')) {
-            console.log(output);
-            console.log(successMessage);
-        } else {
-            console.error(output);
-        }
+        // Split the output into lines
+        const logs = output.split('\n');
+
+        // Print each log line
+        logs.forEach((log) => {
+            console.log(log);
+        });
+
+        console.log(successMessage);
     });
 }
