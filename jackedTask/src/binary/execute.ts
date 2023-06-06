@@ -34,18 +34,20 @@ export function executeCommand(command: string, successMessage: string, failureM
             return;
         }
 
-        const logs = [];
+        const logBuffer = [];
 
-        // Capture stdout and stderr separately
+        // Capture stdout and stderr in a log buffer
         if (stdout) {
-            logs.push(stdout.trim());
+            logBuffer.push(stdout);
         }
 
         if (stderr) {
-            logs.push(stderr.trim());
+            logBuffer.push(stderr);
         }
 
-        // Print the logs in the original order
+        // Print the logs in the correct order
+        const logs = logBuffer.join('').split('\n').filter((log) => log.trim() !== '');
+
         logs.forEach((log) => {
             console.log(log);
         });
