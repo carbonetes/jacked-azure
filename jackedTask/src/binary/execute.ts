@@ -25,17 +25,22 @@ export function executeCommand(command: string, successMessage: string, failureM
 
     const execOptions: ExecOptions = {
         shell: '/bin/bash',
+        maxBuffer: 250 * 1024 * 1024, // Set maxBuffer to 250MB
     };
 
-    const childProcess = exec(`${jackedBinaryPath} ${command}`, execOptions);
-    childProcess.stdout?.pipe(process.stdout);
-    childProcess.stderr?.pipe(process.stderr);
-
-    childProcess.on('exit', (code, signal) => {
-        if (code === 0) {
-            console.log(successMessage);
-        } else {
-            console.error(`${failureMessage}: Exit code: ${code}, Signal: ${signal}`);
+    exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
+        if (error !== null) {
+            console.error(`${failureMessage}: ${error.message}`);
+            console.error(error); // Log the full error object
+            return;
         }
+
+        if (stderr) {
+            console.error(`${failureMessage}: ${stderr}`);
+            return;
+        }
+
+        console.log(stdout);
+        console.log(successMessage);
     });
 }
