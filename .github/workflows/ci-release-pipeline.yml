@@ -35,6 +35,12 @@ jobs:
         json=$(cat vss-extension.json | jq --arg v "${new_version}" '.version = $v')
         echo $json > vss-extension.json
 
+    - name: Update Version in Task Manifest
+      run: |
+        current_version=$(cat jackedTask/task.release.json | jq -r '.version')
+        new_version=$(echo $current_version | sed -E 's/([0-9]+)$/\1+1/')
+        jq '.version = $v' --arg v "$new_version" jackedTask/task.release.json > jackedTask/task.release.json.tmp && mv jackedTask/task.release.json.tmp jackedTask/task.release.json
+
     - name: Publish Plugin
       run: |
         tfx extension publish -t ${{ secrets.AzureMarketplaceToken }} --manifests vss-extension.json
