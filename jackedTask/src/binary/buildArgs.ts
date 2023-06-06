@@ -76,6 +76,7 @@ export async function runJackedCommand(inputs: {
         args.push(inputs.failCriteria);
         // Join all arguments
         command = args.join(' ')
+        console.log("jacked " + command);
     } else {
         console.log("Error generating arguments");
         return;
