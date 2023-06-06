@@ -1,7 +1,6 @@
 import input = require('azure-pipelines-task-lib/task');
 import { runJackedCommand } from './src/binary/buildArgs';
-import { runScript } from './src/binary/install';
-import { error } from 'console';
+import { runScript  } from './src/binary/install';
 
 // Inputs
 const inputs = {
@@ -16,13 +15,14 @@ const inputs = {
 
 runScript()
     .catch((error) => {
-        failBuild('Failed to download and execute install shellscript');
+        console.error('Failed to download and execute install shell script:', error);
+        failBuild('Failed to download and execute install shell script');
     })
     .then(() => {
         runJacked();
     });
 
-    
+
 function runJacked() {
     runJackedCommand(inputs)
         .catch((error) => {

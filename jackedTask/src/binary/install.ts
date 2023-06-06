@@ -1,18 +1,9 @@
 import { exec } from 'child_process';
-import { writeFile } from 'fs';
-import { promisify } from 'util';
-import axios from 'axios';
 
-const writeFileAsync = promisify(writeFile);
-
-async function downloadFile(url: string, filePath: string): Promise<void> {
-    const response = await axios.get(url, { responseType: 'text' });
-    await writeFileAsync(filePath, response.data);
-}
-
-function executeScript(scriptPath: string): Promise<void> {
+function executeScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        const installProcess = exec(`sh ${scriptPath}`);
+        const command = 'curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s -- -d /usr/local/bin';
+        const installProcess = exec(command);
 
         installProcess.stderr?.on('data', (data) => {
             console.error(data.toString());
@@ -32,12 +23,8 @@ function executeScript(scriptPath: string): Promise<void> {
 }
 
 export async function runScript(): Promise<void> {
-    const scriptUrl = 'https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh';
-    const scriptPath = './install.sh';
-
     try {
-        await downloadFile(scriptUrl, scriptPath);
-        await executeScript(scriptPath);
+        await executeScript();
     } catch (error) {
         console.error('Error running script:', error);
     }
