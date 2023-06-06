@@ -24,7 +24,7 @@ export async function runJackedCommand(inputs: {
     const args: string[] = [];
     let command: string | undefined;
 
-    args.push(JACKED);
+    // args.push(JACKED);
 
     if (args.length > 0) {
         
