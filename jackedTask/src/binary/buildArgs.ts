@@ -1,15 +1,15 @@
 import { executeCommand } from "./execute";
 
-    const JACKED = "jacked";
-    const FAILCRITERIA = "--fail-criteria";
-    const DIR = "--dir";
-    const TAR = "--tar";
-    const SBOM = "--sbom";
-    const CIMODE = "--ci";
-    const FILE = "--file";
-    const SKIPDBUPDATE = "--skip-db-update";
-    const IGNOREPACKAGENAMES = "--ignore-package-names";
-    const IGNOREVULNCVES = "--ignore-vuln-cves";
+const JACKED = "jacked";
+const FAILCRITERIA = "--fail-criteria";
+const DIR = "--dir";
+const TAR = "--tar";
+const SBOM = "--sbom";
+const CIMODE = "--ci";
+const FILE = "--file";
+const SKIPDBUPDATE = "--skip-db-update";
+const IGNOREPACKAGENAMES = "--ignore-package-names";
+const IGNOREVULNCVES = "--ignore-vuln-cves";
 
 // Function to run the 'jacked' command
 export async function runJackedCommand(inputs: {
@@ -24,8 +24,10 @@ export async function runJackedCommand(inputs: {
     const args: string[] = [];
     let command: string | undefined;
 
-    if (args.length == 0) {
-        
+    args.push(JACKED);
+
+    if (args.length > 0) {
+
         // Scan Type
         switch (inputs.scanType) {
             case 'image':
@@ -51,8 +53,7 @@ export async function runJackedCommand(inputs: {
                 args.push(inputs.scanName);
                 break;
         }
-
-        // CI Mode
+        // CI MODE
         args.push(CIMODE);
 
         // Skip DB Update
@@ -80,10 +81,9 @@ export async function runJackedCommand(inputs: {
         args.push(FAILCRITERIA);
         args.push(inputs.failCriteria);
         // Join all arguments
-        command = args.join(' ');
-        console.log("jacked " + command);
+        command = args.join(' ')
     } else {
-        console.error("Error generating arguments");
+        console.log("Error generating arguments");
         return;
     }
 
@@ -91,8 +91,7 @@ export async function runJackedCommand(inputs: {
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {
-
-        executeCommand('command', successMessage, failureMessage);
+        executeCommand(command, successMessage, failureMessage);
     } catch (error) {
         return error;
     }
