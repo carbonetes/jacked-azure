@@ -54,7 +54,7 @@ export async function runJackedCommand(inputs: {
 
         // CI Mode
         args.push(CIMODE);
-        
+
         // Skip DB Update
         if (inputs.skipDbUpdate === true) {
             args.push(SKIPDBUPDATE);
@@ -80,9 +80,10 @@ export async function runJackedCommand(inputs: {
         args.push(FAILCRITERIA);
         args.push(inputs.failCriteria);
         // Join all arguments
-        command = args.join(' ')
+        command = args.join(' ');
+        console.log("jacked " + command);
     } else {
-        console.log("Error generating arguments");
+        console.error("Error generating arguments");
         return;
     }
 
