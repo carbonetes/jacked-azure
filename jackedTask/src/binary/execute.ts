@@ -34,16 +34,23 @@ export function executeCommand(command: string, successMessage: string, failureM
             return;
         }
 
-        const output = (stdout || '') + (stderr || '');
+        const logs = [];
 
-        // Split the output into lines
-        const logs = output.split('\n');
+        // Capture stdout and stderr separately
+        if (stdout) {
+            logs.push(stdout.trim());
+        }
 
-        // Print each log line
+        if (stderr) {
+            logs.push(stderr.trim());
+        }
+
+        // Print the logs in the original order
         logs.forEach((log) => {
             console.log(log);
         });
 
         console.log(successMessage);
     });
+
 }
