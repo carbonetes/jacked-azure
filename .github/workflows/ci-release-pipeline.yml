@@ -23,7 +23,6 @@ jobs:
       working-directory: jackedTask
       run: |
         tsc
-        mv task.release.json task.json
 
     - name: Bump version in Manifest
       run: |
@@ -45,6 +44,8 @@ jobs:
         new_patch=$(expr $patch + 1)
         updated_version="{ \"Major\": $new_major, \"Minor\": $new_minor, \"Patch\": $new_patch }"
         jq ".version = $updated_version" jackedTask/task.release.json > jackedTask/task.release.json.tmp && mv jackedTask/task.release.json.tmp jackedTask/task.release.json
+        
+        mv task.release.json task.json
 
     - name: Publish Plugin
       run: |
