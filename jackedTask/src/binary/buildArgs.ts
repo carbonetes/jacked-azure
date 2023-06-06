@@ -90,7 +90,6 @@ export async function runJackedCommand(inputs: {
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {
-        executeCommand('-v', successMessage, failureMessage);
         executeCommand(command, successMessage, failureMessage);
     } catch (error) {
         return error;

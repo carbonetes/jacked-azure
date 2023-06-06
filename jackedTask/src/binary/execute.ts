@@ -39,11 +39,7 @@ export function executeCommand(command: string, successMessage: string, failureM
             return;
         }
 
-        if (stdout.includes(failureMessage)) {
-            console.error(stdout.trim());
-        } else {
-            console.log(stdout.trim());
-            console.log(successMessage);
-        }
+        console.log(stdout);
+        console.log(successMessage);
     });
 }
