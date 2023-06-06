@@ -1,11 +1,11 @@
 import { spawn } from 'child_process';
 
-export function installHomebrew(): Promise<void> {
+export function installPackage(packageName: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        const installProcess = spawn('/bin/bash', ['-c', '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)']);
+        const installProcess = spawn('apt', ['install', '-y', packageName]);
 
         installProcess.on('error', (err) => {
-            const errorMessage = `Error installing Homebrew: ${err.message}`;
+            const errorMessage = `Error installing package: ${err.message}`;
             console.error(errorMessage);
             reject(errorMessage);
         });
@@ -20,11 +20,11 @@ export function installHomebrew(): Promise<void> {
 
         installProcess.on('close', (exitCode) => {
             if (exitCode !== 0) {
-                const errorMessage = `Error installing Homebrew. Exit code: ${exitCode}`;
+                const errorMessage = `Error installing package. Exit code: ${exitCode}`;
                 console.error(errorMessage);
                 reject(errorMessage);
             } else {
-                console.log('Homebrew installed successfully');
+                console.log(`Package ${packageName} installed successfully`);
                 resolve();
             }
         });
