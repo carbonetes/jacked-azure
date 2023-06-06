@@ -92,8 +92,6 @@ export async function runJackedCommand(inputs: {
     try {
 
         executeCommand('ls', 'Command executed successfully', 'Error executing command');
-        executeCommand('cd jacked', 'Command executed successfully', 'Error executing command');
-        executeCommand('ls', 'Command executed successfully', 'Error executing command');
         executeCommand(command, successMessage, failureMessage);
     } catch (error) {
         return error;
