@@ -55,11 +55,6 @@ export async function runJackedCommand(inputs: {
                 break;
         }
 
-        // Skip DB Update
-        if (inputs.skipDbUpdate === true) {
-            args.push(SKIPDBUPDATE);
-        }
-
         // Skip Fail needs to implement --
         // Save output file
         args.push(FILE);
