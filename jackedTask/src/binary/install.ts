@@ -2,7 +2,7 @@ import { exec } from 'child_process';
 
 function executeScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        const command = 'curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s --';
+        const command = 'curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s -- -d /usr/local/bin';
         const installProcess = exec(command);
 
         installProcess.stderr?.on('data', (data) => {

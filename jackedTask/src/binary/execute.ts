@@ -1,14 +1,12 @@
-import { spawnSync, SpawnSyncReturns } from 'child_process';
+import { spawnSync } from 'child_process';
 
 // Function to execute the 'jacked' command
 export function executeJackedCommand(command: string, successMessage: string, failureMessage: string): void {
-    const jackedProcess = spawnSync('command', ['-v', 'jacked']);
+    const jackedProcess = spawnSync(command, { shell: true });
 
-    if ((jackedProcess as SpawnSyncReturns<Buffer>).status === 0) {
-        const output = (jackedProcess.stdout as Buffer).toString().trim();
+    if (jackedProcess.status === 0) {
         console.log(successMessage);
-        console.log(`'jacked' command is available at ${output}`);
     } else {
-        console.error(`${failureMessage}: 'jacked' command not found`);
+        console.error(`${failureMessage}: ${jackedProcess.stderr}`);
     }
 }

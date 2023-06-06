@@ -36,15 +36,16 @@ jobs:
 
     - name: Update Version in Task Manifest
       run: |
-        current_version=$(cat jackedTask/task.json | jq -r '.version')
-        major=$(echo $current_version | jq '.Major')
-        minor=$(echo $current_version | jq '.Minor')
-        patch=$(echo $current_version | jq '.Patch')
+        current_version=$(tfx extension show -t ${{ secrets.AzureMarketplaceToken }} --publisher SairenChristianBuerano --extension-id jacked --output json | jq -r '.versions[0].version')
+        major=$(jq '.version.Major' jackedTask/task.json)
+        minor=$(jq '.version.Minor' jackedTask/task.json)
+        patch=$(jq '.version.Patch' jackedTask/task.json)
         new_major=$major
         new_minor=$minor
         new_patch=$(expr $patch + 1)
         updated_version="{ \"Major\": $new_major, \"Minor\": $new_minor, \"Patch\": $new_patch }"
         jq ".version = $updated_version" jackedTask/task.json > jackedTask/task.json.tmp && mv jackedTask/task.json.tmp jackedTask/task.json
+
 
     - name: Publish Plugin
       run: |
