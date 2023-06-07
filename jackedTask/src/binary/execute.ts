@@ -52,8 +52,10 @@ export function executeCommand(command: string, successMessage: string, failureM
             .map((log) => log.trim())
             .filter((log) => log !== '');
 
-        logs.forEach((log) => {
+        // Print the logs in the correct order
+        for (const log of logs) {
             console.log(log);
-        });
+        }
+
     });
 }
