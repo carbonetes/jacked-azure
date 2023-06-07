@@ -45,13 +45,15 @@ export function executeCommand(command: string, successMessage: string, failureM
             logBuffer.push(stderr);
         }
 
-
-        // Print the logs in the correct order with trimmed lines
-        const logs = logBuffer.join('').split('\n').map((log) => log.trim()).filter((log) => log !== '');
+        // Filter and trim the logs
+        const logs = logBuffer.join('').split('\n')
+            .filter((log) => !log.includes('Extracting files'))
+            .filter((log) => !log.includes('Downloading updated database'))
+            .map((log) => log.trim())
+            .filter((log) => log !== '');
 
         logs.forEach((log) => {
             console.log(log);
         });
     });
-
 }

@@ -29,9 +29,6 @@ function runJacked() {
             console.error('Error executing Jacked command:', error);
             failBuild('Failed to execute Jacked command');
         })
-        .then(() => {
-            console.log('Executing Jacked');
-        });
 }
 
 function failBuild(errorMessage: string) {
