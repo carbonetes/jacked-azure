@@ -45,14 +45,13 @@ export function executeCommand(command: string, successMessage: string, failureM
             logBuffer.push(stderr);
         }
 
-        // Print the logs in the correct order
-        const logs = logBuffer.join('').split('\n');
+
+        // Print the logs in the correct order with trimmed lines
+        const logs = logBuffer.join('').split('\n').map((log) => log.trim()).filter((log) => log !== '');
 
         logs.forEach((log) => {
             console.log(log);
         });
-
-        console.log(successMessage);
     });
 
 }
