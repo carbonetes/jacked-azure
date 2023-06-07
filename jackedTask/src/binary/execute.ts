@@ -46,7 +46,7 @@ export function executeCommand(command: string, successMessage: string, failureM
         }
 
         // Print the logs in the correct order
-        const logs = logBuffer.join('').split('\n').filter((log) => log.trim() !== '');
+        const logs = logBuffer.join('').split('\n');
 
         logs.forEach((log) => {
             console.log(log);
