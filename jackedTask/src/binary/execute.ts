@@ -52,8 +52,7 @@ export function executeCommand(
     });
 
     childProcess.on('exit', (code) => {
-        // Skip fail is true, exit 0
-        if (code == 0) {
+        if (code === 0) {
 
             console.log(
                 Styles.FgGreen +
@@ -62,7 +61,7 @@ export function executeCommand(
                 Common.PASSED +
                 Styles.Reset
             );
-            process.exit(0);
+
         } else {
             console.error(
                 Styles.FgRed +
@@ -71,20 +70,18 @@ export function executeCommand(
                 Common.FAILED +
                 Styles.Reset
             );
+
+            if (skipFail) {
+                console.log(
+                    Styles.FgCyan +
+                    Styles.Bold +
+                    Strings.NOTE +
+                    Strings.SKIPFAILBUILD +
+                    Styles.Reset
+                );
+                process.exit(0);
+            }
+            process.exit(1);
         }
     });
-    // Skip fail build
-    if (!skipFail) {
-        process.exit(1);
-    } else if (skipFail) {
-
-        console.log(
-            Styles.FgCyan +
-            Styles.Bold +
-            Strings.NOTE +
-            Strings.SKIPFAILBUILD +
-            Styles.Reset
-        );
-        process.exit(0);
-    }
 }
