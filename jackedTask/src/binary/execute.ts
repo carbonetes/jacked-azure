@@ -57,7 +57,6 @@ export function executeCommand(
         if (code === 0) {
 
             console.log(
-                Common.success + '\n' +
                 Styles.FgGreen +
                 Styles.Bold  +
                 Strings.JACKEDASSESSMENT +
@@ -67,7 +66,6 @@ export function executeCommand(
             exit(0);
         } else {
             console.error(
-                Common.error + '\n' +
                 Styles.FgRed +
                 Styles.Bold +
                 Strings.JACKEDASSESSMENT +
