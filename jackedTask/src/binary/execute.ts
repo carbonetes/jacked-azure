@@ -72,7 +72,7 @@ export function executeCommand(
                 Styles.FgRed +
                 Styles.Bold 
             );
-            if (!(skipFail === false)) {
+            if (!skipFail) {
                 exit(1);
             } else {
                 exit(0);
