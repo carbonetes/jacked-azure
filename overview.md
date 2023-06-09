@@ -1,47 +1,43 @@
-[![Carbonetes](https://cdn.carbonetes.com/carbonetes-plugin/assets/branding/branding_header.png)](https://carbonetes.com)
+[![Jacked](images/logo.png)](https://github.com/carbonetes/jacked)
 
-# Overview
+# Azure DevOps Plugin: Jacked
 
-**Carbonetes Task Extension** provides comprehensive container analysis and policy evaluation as a fully managed service. Carbonetes analyzes your container images for native code vulnerabilities, software composition analysis (SCA), license types, malware, secrets, and bill of materials.
+## Introduction
 
-To know more about Carbonetes, check [our website](https://carbonetes.com).
+**Jacked** provides organizations with a more comprehensive look at their application to take calculated actions and create a better security approach. Its primary purpose is to scan vulnerabilities to implement subsequent risk mitigation measures.
 
 ## Task Usage
-
-Seamlessly integrates comprehensive container analysis directly into your CI/CD pipeline.
 
 ### Docker image scan example
 
 ```yaml
-- task: CarbonetesComprehensiveAnalysis@1
+- task: Jacked@1
   inputs:
-    registryUri: '12345678910.dkr.ecr.us-west-2.amazonaws.com'
-    repoImageTag: 'busybox:latest'
-    username: 'myusername@carbonetes.com'
-    password: 'mypassword'
+    scanType: 'image'
+    scanName: 'ubuntu:latest'
+    failCriteria: 'medium'
+    ignoreCves: 
+    ignorePackageNames:
 ```
 
 ## Prerequisites
 
-This pipe requires a valid **Carbonetes credentials** `(email and password)`.
-
-- Doesn't have any credentials yet? [Register now](https://carbonetes.com).
+- **Docker Plugin** for image pulling.
 
 ## Inputs Description
 
 | Input Name                  | Description                                                  |
 | --------------------------- | ------------------------------------------------------------ |
-| registryUri \*              | Registry Uri (Added in Carbonetes Web Application) |
-| repoImageTag \*             | The image to be scan. |
-| username \*                 | The account username on Carbonetes. |
-| password \*                 | The account password on Carbonetes. |
-| failOnPolicy                | Decides if it builds or stops the build based on the policy evaluation. Default: `true`. |
+| scanType \*                 | Select Scan Type: image, tar, or directory. | 
+| scanName \*                 | Input image name `image:tag`, tar file path, or directory path. |
+| failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `low`. |
+| ignoreCves                  | Input e.g. cve-2022-12423,cve-2021-23423 |
+| ignorePackageNames          | Decides if it builds or stops the build based on the policy evaluation. |
 
 _\* = required inputs._
 
-*Note : to be aligned in your CI/CD pipeline, make sure that you supply the same REPOIMAGETAG that has been built within your pipeline stages.*
 
-## Outputs Description
+## Output Description
 
 | Output Name                  | Description                                                                                  |
 | ---------------------------- | -------------------------------------------------------------------------------------------- |
@@ -58,32 +54,20 @@ _\* = required inputs._
 ## Complete CI/CD Example
 
 ```yaml
-trigger: 
-- master
+trigger:
+- main
 
 pool:
-  vmImage: "ubuntu-latest"
+  vmImage: ubuntu-latest
 
-stages:
-  - stage: Build and Push
-    jobs:
-      - job:
-        steps:
-        - script: docker build -t busybox:latest .
-
-        - task: CarbonetesComprehensiveAnalysis@1
-          inputs:
-            registryUri: '12345678910.dkr.ecr.us-west-2.amazonaws.com'
-            ############################################################
-            # Note: to be aligned in your CI/CD pipeline,
-            #       make sure that you supply the same repoImageTag
-            #       that has been built within your pipeline stages.
-            ############################################################
-            repoImageTag: 'busybox:latest'
-            username: 'myusername@carbonetes.com'
-            password: 'mypassword'
-        
-        - script: docker push busybox:latest
+steps:
+- task: Jacked@1
+  inputs:
+    scanType: 'directory'
+    scanName: '.'
+    failCriteria: 'medium'
+    ignoreCves: 
+    ignorePackageNames: 'gorm.io/driver/sqlite'
 ```
 
 ## Support
@@ -97,6 +81,4 @@ If reporting an issue, please include:
 
 ## License and Copyright
 
-Copyright © 2021 Carbonetes
-
-Licensed under [MIT License](https://marketplace.visualstudio.com/items/Carbonetes.carbonetes-comprehensive-analysis/license).
+Licensed under [MIT License](LICENSE).
