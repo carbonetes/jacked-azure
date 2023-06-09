@@ -69,12 +69,11 @@ export function executeCommand(command: string, failedSeverity: string, failureM
         }
 
         if (failureMessage) {
-            console.log(`Jacked assessment is failed. Please see recommendation to fix vulnerabilities`)
-            exit(1); // Exit the process with a non-zero status code to indicate failure
+            console.log(`Jacked assessment is failed. Please see recommendation to fix vulnerabilities`);
+            process.exitCode = 1; // Set the process exit code to 1 to indicate failure
+            return;
         }
 
-        exit(0); // Exit the process with a zero status code to indicate success
+        process.exitCode = 0; // Set the process exit code to 0 to indicate success
     });
-
-
 }
