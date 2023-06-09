@@ -14,8 +14,6 @@
     scanType: 'image'
     scanName: 'ubuntu:latest'
     failCriteria: 'medium'
-    ignoreCves: 
-    ignorePackageNames:
 ```
 
 ## Prerequisites
@@ -28,28 +26,22 @@
 | --------------------------- | ------------------------------------------------------------ |
 | scanType \*                 | Select Scan Type: image, tar, or directory. | 
 | scanName \*                 | Input image name `image:tag`, tar file path, or directory path. |
-| failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `low`. |
-| ignoreCves                  | Input e.g. cve-2022-12423,cve-2021-23423 |
-| ignorePackageNames          | Decides if it builds or stops the build based on the policy evaluation. |
+| failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `medium`. |
+| skipBuildFail \*            | Skip build fail based on the assessment. |
 
 _\* = required inputs._
 
 
 ## Output Description
 
-| Output Name                  | Description                                                                                  |
+| Table                        | Description                                                                                   |
 | ---------------------------- | -------------------------------------------------------------------------------------------- |
-| Vulnerabilities              | A list of known security risks that can be exploited by a threat actor listed with severities. |
-| Software Compositions        | Software that might cause a security risk listed with severities. |
-| Software Dependencies        | Pieces of software that rely on each other listed with vulnerability counts. |
-| Licenses                     | Legal compliance found on each software of the scanned image. |
-| Malware                      | Virus threats found on the scanned image. |
-| Secrets                      | Secret data found on each software of the scanned image. |
-| Bill of Materials            | A list of all the components exist in a software. |
-| Policy Result                | The result of the policy evaluation, `PASSED` or `FAILED`. |
-| Final Action                 | Decide if the build will `STOP` or `GO` based on the policy evaluation. |
+| SBOM                         | Show a list of packages. |
+| Vulnerability Scan           | Show list of vulnerabilities found. |
+| Recommendation               | Show available recommendation to fix vulnerabilities. |
+| Assessment                   | Based on fail-criteria severity. Pass-Fail Assessment. |
 
-## Complete CI/CD Example
+## Pipeline
 
 ```yaml
 trigger:
