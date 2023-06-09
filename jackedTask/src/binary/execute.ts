@@ -71,19 +71,20 @@ export function executeCommand(
                 Common.FAILED +
                 Styles.Reset
             );
-            if (!skipFail) {
-                process.exit(1);
-            } else if (skipFail) {
-
-                console.log(
-                    Styles.FgCyan +
-                    Styles.Bold +
-                    Strings.NOTE +
-                    Strings.SKIPFAILBUILD +
-                    Styles.Reset
-                );
-                process.exit(0);
-            }
         }
     });
+    // Skip fail build
+    if (!skipFail) {
+        process.exit(1);
+    } else if (skipFail) {
+
+        console.log(
+            Styles.FgCyan +
+            Styles.Bold +
+            Strings.NOTE +
+            Strings.SKIPFAILBUILD +
+            Styles.Reset
+        );
+        process.exit(0);
+    }
 }
