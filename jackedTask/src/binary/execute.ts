@@ -65,15 +65,6 @@ export function executeCommand(
             exit(0);
 
         } else {
-            if (skipBuildFail) {
-                console.log(
-                    Styles.FgCyan +
-                    Styles.Bold +
-                    Strings.NOTE +
-                    Strings.SKIPFAILBUILD +
-                    Styles.Reset
-                );
-            } 
             // Display fail
             console.error(
                 Styles.FgRed +
@@ -87,8 +78,18 @@ export function executeCommand(
                 Strings.RECOMMENDATION +
                 Styles.Reset
             );
-
             exitStatus = 1;
+
+            if (skipBuildFail) {
+                console.log(
+                    Styles.FgCyan +
+                    Styles.Bold +
+                    Strings.NOTE +
+                    Strings.SKIPFAILBUILD +
+                    Styles.Reset
+                );
+                exitStatus = 0;
+            }
         }
         exit(exitStatus);
     });
