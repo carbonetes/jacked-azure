@@ -10,7 +10,7 @@ const inputs = {
     ignoreCves: input.getInput("ignoreCves", false) || "",
     ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
     skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
-    skipFail: Boolean(input.getInput("skipFail", true)) || false,
+    skipFail: Boolean(input.getInput("skipFail")) || false,
 };
 
 runScript()
