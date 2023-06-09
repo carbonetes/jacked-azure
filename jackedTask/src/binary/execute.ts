@@ -61,16 +61,9 @@ export function executeCommand(
                 Common.PASSED +
                 Styles.Reset
             );
+            exit(0);
 
         } else {
-            console.error(
-                Styles.FgRed +
-                Styles.Bold +
-                Strings.JACKEDASSESSMENT +
-                Common.FAILED +
-                Styles.Reset
-            );
-
             if (skipFail) {
                 console.log(
                     Styles.FgCyan +
@@ -79,9 +72,20 @@ export function executeCommand(
                     Strings.SKIPFAILBUILD +
                     Styles.Reset
                 );
-                process.exit(0);
+            } else {
+                console.error(
+                    Styles.FgRed +
+                    Styles.Bold +
+                    Strings.JACKEDASSESSMENT +
+                    Common.FAILED +
+                    Styles.Reset
+                );
             }
-            process.exit(1);
         }
+
+        if (skipFail) {
+            exit(0);
+        }
+        exit(1);
     });
 }
