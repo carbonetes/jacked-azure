@@ -62,7 +62,7 @@ steps:
 ```
 
 ## Support
-To help with this task extension, or have an issue or feature request, please contact: [eng@carbonetes.com](eng@carbonetes.com)
+To help with this task extension, or have an issue or feature request, please contact:(eng@carbonetes.com)
 
 If reporting an issue, please include:
 
