@@ -61,8 +61,7 @@ export function executeCommand(
                 Strings.JACKEDASSESSMENT +
                 Strings.PASSED +
                 Styles.FgGreen +
-                Styles.Bold  +
-                Styles.Reset
+                Styles.Bold  
             );
             exit(0);
         } else {
@@ -71,10 +70,9 @@ export function executeCommand(
                 Strings.JACKEDASSESSMENT +
                 Strings.FAILED +
                 Styles.FgRed +
-                Styles.Bold  +
-                Styles.Reset
+                Styles.Bold 
             );
-            if (skipFail === false) {
+            if (!(skipFail === false)) {
                 exit(1);
             } else {
                 exit(0);
