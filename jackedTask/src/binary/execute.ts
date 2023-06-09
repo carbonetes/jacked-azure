@@ -4,7 +4,6 @@ import * as path from 'path';
 import { homedir } from 'os';
 import { exit } from 'process';
 import { Styles, Common, Strings } from '../../styles'
-import { skip } from 'node:test';
 
 export function executeCommand(
     command: string,
@@ -63,7 +62,7 @@ export function executeCommand(
                 Common.PASSED +
                 Styles.Reset
             );
-            exit(0);
+            process.exit(0);
         } else {
             console.error(
                 Styles.FgRed +
@@ -73,7 +72,7 @@ export function executeCommand(
                 Styles.Reset
             );
             if (!skipFail) {
-                exit(1);
+                process.exit(1);
             } else if (skipFail) {
 
                 console.log(
@@ -83,7 +82,7 @@ export function executeCommand(
                     Strings.SKIPFAILBUILD +
                     Styles.Reset
                 );
-                exit(0);
+                process.exit(0);
             }
         }
     });
