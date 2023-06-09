@@ -1,4 +1,5 @@
 import { executeCommand } from "./execute";
+import input = require('azure-pipelines-task-lib/task');
 
 const JACKED = "jacked";
 const FAILCRITERIA = "--fail-criteria";
@@ -12,15 +13,20 @@ const IGNOREPACKAGENAMES = "--ignore-package-names";
 const IGNOREVULNCVES = "--ignore-vuln-cves";
 
 // Function to run the 'jacked' command
-export async function runJackedCommand(inputs: {
-    scanType: string;
-    scanName: string;
-    failCriteria: string;
-    ignoreCves: string;
-    ignorePackageNames: string;
-    skipDbUpdate: boolean;
-    skipFail: boolean;
-}) {
+export async function runJackedCommand() {
+
+    // Inputs
+    const inputs = {
+        scanType: input.getInput("scanType", true) || "",
+        scanName: input.getInput("scanName", true) || "",
+        failCriteria: input.getInput("failCriteria", true) || "",
+        ignoreCves: input.getInput("ignoreCves", false) || "",
+        ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
+        skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
+        skipFail: Boolean(input.getInput("skipFail")) || false,
+    };
+
+
     const args: string[] = [];
     let command: string | undefined;
 
@@ -82,7 +88,7 @@ export async function runJackedCommand(inputs: {
     }
 
     const failedSeverity = inputs.failCriteria;
-    const skipFail = inputs.skipFail
+    const skipFail = inputs.skipFail;
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {

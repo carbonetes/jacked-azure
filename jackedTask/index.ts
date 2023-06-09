@@ -1,17 +1,5 @@
-import input = require('azure-pipelines-task-lib/task');
 import { runJackedCommand } from './src/binary/buildArgs';
 import { runScript  } from './src/binary/install';
-
-// Inputs
-const inputs = {
-    scanType: input.getInput("scanType", true) || "",
-    scanName: input.getInput("scanName", true) || "",
-    failCriteria: input.getInput("failCriteria", true) || "",
-    ignoreCves: input.getInput("ignoreCves", false) || "",
-    ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
-    skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
-    skipFail: Boolean(input.getInput("skipFail")) || false,
-};
 
 runScript()
     .catch((error) => {
@@ -24,7 +12,7 @@ runScript()
 
 
 function runJacked() {
-    runJackedCommand(inputs)
+    runJackedCommand()
         .catch((error) => {
             console.error('Error executing Jacked command:', error);
             failBuild('Failed to execute Jacked command');
