@@ -9,7 +9,7 @@ export function executeCommand(
     command: string,
     failedSeverity: string,
     failureMessage: string,
-    skipBuildFail: boolean
+    skipBuildFail: string
 ): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
@@ -80,7 +80,7 @@ export function executeCommand(
             );
             exitStatus = 1;
 
-            if (skipBuildFail) {
+            if (skipBuildFail == "true") {
                 console.log(
                     Styles.FgCyan +
                     Styles.Bold +
