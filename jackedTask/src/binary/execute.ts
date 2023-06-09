@@ -3,7 +3,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { homedir } from 'os';
 import { exit } from 'process';
-import { Styles, Common } from '../../styles'
+import { Styles, Common, Strings } from '../../styles'
+import { skip } from 'node:test';
 
 export function executeCommand(
     command: string,
@@ -53,11 +54,12 @@ export function executeCommand(
 
     childProcess.on('exit', (code) => {
         // Skip fail is true, exit 0
-        if (code === 0 || skipFail === true) {
+        if (code === 0) {
 
             console.error(
                 Common.success + '\n' +
-                "***Jacked assessment passed.***" +
+                Strings.JACKEDASSESSMENT +
+                Strings.PASSED +
                 Styles.FgGreen +
                 Styles.Bold  +
                 Styles.Reset
@@ -66,12 +68,17 @@ export function executeCommand(
         } else {
             console.error(
                 Common.error + '\n' +
-                "***Jacked assessment failed. Please see recommendations to fix vulnerabilities.***" +
+                Strings.JACKEDASSESSMENT +
+                Strings.FAILED +
                 Styles.FgRed +
                 Styles.Bold  +
                 Styles.Reset
             );
-            exit(1);
+            if (skipFail === false) {
+                exit(1);
+            } else {
+                exit(0);
+            }
         }
     });
 }

@@ -21,3 +21,10 @@ export enum Common {
     info = "\x1b[36mINFO \x1b[0m",
     success = "\x1b[32mSUCCESS \x1b[0m"
 }
+
+export enum Strings {
+    JACKEDASSESSMENT = "Jacked Assessment:",
+    RECOMMENDATION = "Please see recommendations to fix vulnerabilities.",
+    PASSED = "Passed",
+    FAILED = "Failed"
+}
