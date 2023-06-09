@@ -23,8 +23,10 @@ export async function runJackedCommand() {
         ignoreCves: input.getInput("ignoreCves", false) || "",
         ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
         skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
-        skipFail: Boolean(input.getInput("skipFail")) || false,
+        skipFail: Boolean(input.getInput("skipFail", false)) || false,
     };
+
+    console.log("Checking Skip Build Fail: ", inputs.skipFail);
 
 
     const args: string[] = [];

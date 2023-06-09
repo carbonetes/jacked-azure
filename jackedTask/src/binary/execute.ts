@@ -64,7 +64,7 @@ export function executeCommand(
             exit(0);
 
         } else {
-            if (skipFail) {
+            if (skipFail == true) {
                 console.log(
                     Styles.FgCyan +
                     Styles.Bold +
