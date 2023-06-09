@@ -22,11 +22,13 @@ export function executeCommand(command: string, failedSeverity: string, failureM
         console.log(`Executable permission set for 'jacked' binary`);
     }
 
-    const execOptions: ExecOptions = {
-        shell: '/bin/bash',
-        maxBuffer: 250 * 1024 * 1024, // Set maxBuffer to 250MB
-    };
 
+    const execOptions = {
+        cwd: '.',
+        maxBuffer: 1024 * 1024 * 250, // Set a higher value for maxBuffer (e.g., 250MB)
+        shell: '/bin/bash',
+        stdio: ['pipe', 'pipe', 'ignore'] // Redirect error output to /dev/null
+    };
 
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
         if (error && error.code !== 0) {
@@ -36,13 +38,9 @@ export function executeCommand(command: string, failedSeverity: string, failureM
 
         const logBuffer = [];
 
-        // Capture stdout and stderr in a log buffer
+        // Capture stdout in a log buffer
         if (stdout) {
             logBuffer.push(stdout);
-        }
-
-        if (stderr) {
-            logBuffer.push(stderr);
         }
 
         // Filter and trim the logs
@@ -52,20 +50,28 @@ export function executeCommand(command: string, failedSeverity: string, failureM
             .map((log) => log.trim())
             .filter((log) => log !== '');
 
-        // Print the logs in the correct order
-        let failed = false;
+        // Check for failure in logs
+        let failureMessage = '';
         for (const log of logs) {
-            console.log(log);
             if (log.includes('Failed:')) {
-                failed = true;
+                failureMessage = log;
+                break;
             }
         }
 
-        if (failed) {
-            console.error(`Jacked assesstment failed: Vulnerabilities found equal or higher than ${failedSeverity}`);
+
+        // Print the logs in the correct order
+        for (const log of logs) {
+            console.log(log);
+        }
+
+        if (failureMessage) {
+            console.error(`Jacked command failed: ${failureMessage}`);
             process.exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
+        process.exit(0); // Exit the process with a zero status code to indicate success
     });
+
 
 }
