@@ -55,22 +55,21 @@ export async function runJackedCommand(inputs: {
                 break;
         }
 
-        // Skip Fail needs to implement --
         // Save output file
-        args.push(FILE);
-        args.push('jacked-result.txt'); // Temporary file name --
+        // args.push(FILE);
+        // args.push('jacked-result.txt'); // Temporary file name --
 
         // Ignore Cves
-        if (inputs.ignoreCves && inputs.ignoreCves.length > 0) {
-            args.push(IGNOREVULNCVES);
-            args.push(inputs.ignoreCves);
-        }
+        // if (inputs.ignoreCves && inputs.ignoreCves.length > 0) {
+        //     args.push(IGNOREVULNCVES);
+        //     args.push(inputs.ignoreCves);
+        // }
 
         // Ignore Package Names
-        if (inputs.ignorePackageNames && inputs.ignorePackageNames.length > 0) {
-            args.push(IGNOREPACKAGENAMES);
-            args.push(inputs.ignorePackageNames);
-        }
+        // if (inputs.ignorePackageNames && inputs.ignorePackageNames.length > 0) {
+        //     args.push(IGNOREPACKAGENAMES);
+        //     args.push(inputs.ignorePackageNames);
+        // }
 
         args.push(FAILCRITERIA);
         args.push(inputs.failCriteria);
@@ -83,10 +82,11 @@ export async function runJackedCommand(inputs: {
     }
 
     const failedSeverity = inputs.failCriteria;
+    const skipFail = inputs.skipFail
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {
-        executeCommand(command, failedSeverity, failureMessage);
+        executeCommand(command, failedSeverity, failureMessage, skipFail);
     } catch (error) {
         return error;
     }

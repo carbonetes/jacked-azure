@@ -3,11 +3,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { homedir } from 'os';
 import { exit } from 'process';
+import { Styles, Common } from '../../styles'
 
 export function executeCommand(
     command: string,
     failedSeverity: string,
-    failureMessage: string
+    failureMessage: string,
+    skipFail: boolean
 ): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
@@ -50,10 +52,23 @@ export function executeCommand(
     });
 
     childProcess.on('exit', (code) => {
-        if (code === 0) {
+        // Skip fail is true, exit 0
+        if (code === 0 || skipFail) {
+
+            console.error(
+                `***Jacked assessment passed.***` +
+                Styles.FgGreen +
+                Styles.Bold  +
+                Styles.Reset
+            );
             exit(0);
         } else {
-            console.error(`***Jacked assessment has failed. Please see recommendations to fix vulnerabilities.***`);
+            console.error(
+                `***Jacked assessment failed. Please see recommendations to fix vulnerabilities.***` +
+                Styles.FgRed +
+                Styles.Bold  +
+                Styles.Reset
+            );
             exit(1);
         }
     });
