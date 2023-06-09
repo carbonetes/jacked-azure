@@ -82,11 +82,11 @@ export async function runJackedCommand(inputs: {
         return;
     }
 
-    const successMessage = `'${JACKED}' command executed successfully`;
+    const failedSeverity = inputs.failCriteria;
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {
-        executeCommand(command, successMessage, failureMessage);
+        executeCommand(command, failedSeverity, failureMessage);
     } catch (error) {
         return error;
     }

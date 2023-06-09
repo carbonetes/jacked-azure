@@ -2,7 +2,7 @@ import { exec, ExecOptions } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { homedir } from 'os';
-export function executeCommand(command: string, successMessage: string, failureMessage: string): void {
+export function executeCommand(command: string, failedSeverity: string, failureMessage: string): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
 
@@ -30,7 +30,7 @@ export function executeCommand(command: string, successMessage: string, failureM
 
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
         if (error && error.code !== 0) {
-            console.error(`${failureMessage}: ${error.message}`);
+            console.error(`Error running 'jacked' command: ${error.message}`);
             process.exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
@@ -56,16 +56,16 @@ export function executeCommand(command: string, successMessage: string, failureM
         let failed = false;
         for (const log of logs) {
             console.log(log);
-            if (log.includes('Failed') || log.includes('failed')) {
-                console.error(`${failureMessage}: ${log}`);
+            if (log.includes('Failed:')) {
                 failed = true;
             }
         }
 
         if (failed) {
-            console.error(`${failureMessage}: Vulnerabilities failed the assessment`);
+            console.error(`Jacked assesstment failed: Vulnerabilities found equal or higher than ${failedSeverity}`);
             process.exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
     });
+
 }
