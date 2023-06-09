@@ -50,7 +50,7 @@ export function executeCommand(
         console.error(`Error running 'jacked' command: ${error.message}`);
         exit(1);
     });
-
+    console.log("***Checking Skip Build Fail: " + skipFail);
     childProcess.on('exit', (code) => {
         if (code === 0) {
 
@@ -72,15 +72,15 @@ export function executeCommand(
                     Strings.SKIPFAILBUILD +
                     Styles.Reset
                 );
-            } else {
-                console.error(
-                    Styles.FgRed +
-                    Styles.Bold +
-                    Strings.JACKEDASSESSMENT +
-                    Common.FAILED +
-                    Styles.Reset
-                );
-            }
+            } 
+            // Display fail
+            console.error(
+                Styles.FgRed +
+                Styles.Bold +
+                Strings.JACKEDASSESSMENT +
+                Common.FAILED +
+                Styles.Reset
+            );
         }
 
         if (skipFail) {
