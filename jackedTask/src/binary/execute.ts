@@ -53,10 +53,11 @@ export function executeCommand(
 
     childProcess.on('exit', (code) => {
         // Skip fail is true, exit 0
-        if (code === 0 || skipFail) {
+        if (code === 0 || skipFail === true) {
 
             console.error(
-                `***Jacked assessment passed.***` +
+                Common.success + '\n' +
+                "***Jacked assessment passed.***" +
                 Styles.FgGreen +
                 Styles.Bold  +
                 Styles.Reset
@@ -64,7 +65,8 @@ export function executeCommand(
             exit(0);
         } else {
             console.error(
-                `***Jacked assessment failed. Please see recommendations to fix vulnerabilities.***` +
+                Common.error + '\n' +
+                "***Jacked assessment failed. Please see recommendations to fix vulnerabilities.***" +
                 Styles.FgRed +
                 Styles.Bold  +
                 Styles.Reset
