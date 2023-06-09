@@ -31,7 +31,7 @@ export function executeCommand(command: string, successMessage: string, failureM
     exec(`${jackedBinaryPath} ${command}`, execOptions, (error, stdout, stderr) => {
         if (error && error.code !== 0) {
             console.error(`${failureMessage}: ${error.message}`);
-            return;
+            process.exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
         const logBuffer = [];
@@ -56,13 +56,14 @@ export function executeCommand(command: string, successMessage: string, failureM
         let failed = false;
         for (const log of logs) {
             console.log(log);
-            if (log.includes('Failed:')) {
+            if (log.includes('Failed') || log.includes('failed')) {
                 console.error(`${failureMessage}: ${log}`);
                 failed = true;
             }
         }
 
         if (failed) {
+            console.error(`${failureMessage}: Vulnerabilities failed the assessment`);
             process.exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
