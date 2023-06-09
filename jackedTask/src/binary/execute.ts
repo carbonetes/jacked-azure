@@ -55,6 +55,10 @@ export function executeCommand(command: string, successMessage: string, failureM
         // Print the logs in the correct order
         for (const log of logs) {
             console.log(log);
+            if (log.includes('Failed:')) {
+                console.error(`${failureMessage}: ${log}`);
+                process.exit(1); // Exit the process with a non-zero status code to indicate failure
+            }
         }
 
     });
