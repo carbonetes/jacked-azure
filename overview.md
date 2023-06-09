@@ -14,6 +14,7 @@
     scanType: 'image'
     scanName: 'ubuntu:latest'
     failCriteria: 'medium'
+    skipBuildFail: 'false'
 ```
 
 ## Prerequisites
@@ -27,7 +28,7 @@
 | scanType \*                 | Select Scan Type: image, tar, or directory. | 
 | scanName \*                 | Input image name `image:tag`, tar file path, or directory path. |
 | failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `medium`. |
-| skipBuildFail \*            | Skip build fail based on the assessment. |
+| skipBuildFail \*            | Default as false. Skip build to fail based on the assessment. |
 
 _\* = required inputs._
 
@@ -53,11 +54,11 @@ pool:
 steps:
 - task: Jacked@1
   inputs:
-    scanType: 'directory'
-    scanName: '.'
-    failCriteria: 'medium'
-    ignoreCves: 
-    ignorePackageNames: 'gorm.io/driver/sqlite'
+    scanType: 'directory'           // Select Scan Type, image, directory, tar, or sbom.
+    scanName: '.'                   // Input Image name, Directory path, tar file path, or sbom file path.
+    failCriteria: 'medium'          // Select a threshold that will fail the build when equal to or above the severity found in the results. 
+                                    // Select Severity, critical, high, medium, low, negligible, unknown.
+    skipBuildFail: 'false'          // Default as false. Skip build to fail based on the assessment.
 ```
 
 ## Support
