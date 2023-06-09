@@ -1,10 +1,8 @@
-[![Jacked](images/logo.png)](https://github.com/carbonetes/jacked)
-
 # Azure DevOps Plugin: Jacked
 
 ## Introduction
 
-**Jacked** provides organizations with a more comprehensive look at their application to take calculated actions and create a better security approach. Its primary purpose is to scan vulnerabilities to implement subsequent risk mitigation measures.
+**[Jacked](https://github.com/carbonetes/jacked)** provides organizations with a more comprehensive look at their application to take calculated actions and create a better security approach. Its primary purpose is to scan vulnerabilities to implement subsequent risk mitigation measures.
 
 ## Task Usage
 

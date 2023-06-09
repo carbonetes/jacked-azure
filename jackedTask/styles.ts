@@ -29,6 +29,6 @@ export enum Strings {
     JACKEDASSESSMENT = "JACKED ASSESSMENT: ",
     RECOMMENDATION = "Please see recommendations to fix vulnerabilities.",
     NOTE = "NOTE: ",
-    SKIPFAILBUILD = "SKIP BUILD FAIL IS ON",
+    SKIPFAILBUILD = "Skip build fail is ON",
     FAILCRITERIA = "Severity found equal or higher than: "
 }

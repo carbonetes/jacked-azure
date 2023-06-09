@@ -53,7 +53,7 @@
             "label": "Fail Criteria",
             "defaultValue": "medium",
             "required": true,
-            "helpMarkDown": "Select a threshold that will fail the build when equal to or above the severity found in the results."
+            "helpMarkDown": "Select a threshold that will fail the build when equal to or above the severity found in the results. Default is medium"
         },
         {
             "name": "ignoreCves",
@@ -81,11 +81,11 @@
         },
         {
             "name": "skipBuildFail",
-            "type": "boolean",
-            "label": "Skip Fail Build",
-            "defaultValue": false,
+            "type": "string",
+            "label": "Skip Build Fail ",
+            "defaultValue": "false",
             "required": true,
-            "helpMarkDown": "Restrict the plugin from failing the build based on the assessment result."
+            "helpMarkDown": "Restrict the plugin from failing the build based on the assessment result. Default is false."
         }
     ],
     "execution": {
