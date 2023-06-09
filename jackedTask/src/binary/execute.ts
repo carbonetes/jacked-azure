@@ -53,7 +53,7 @@ export function executeCommand(
         if (code === 0) {
             exit(0);
         } else {
-            console.log(`Jacked assessment has failed. Please see recommendations to fix vulnerabilities.`);
+            console.error(`***Jacked assessment has failed. Please see recommendations to fix vulnerabilities.***`);
             exit(1);
         }
     });
