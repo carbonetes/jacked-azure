@@ -23,7 +23,7 @@ export enum Common {
 }
 
 export enum Strings {
-    JACKEDASSESSMENT = "Jacked Assessment:",
+    JACKEDASSESSMENT = "Jacked Assessment: ",
     RECOMMENDATION = "Please see recommendations to fix vulnerabilities.",
     PASSED = "Passed",
     FAILED = "Failed"
