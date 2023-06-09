@@ -2,6 +2,9 @@ import { exec, ExecOptions } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { homedir } from 'os';
+import { exit } from "process";
+
+
 export function executeCommand(command: string, failedSeverity: string, failureMessage: string): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
@@ -66,11 +69,11 @@ export function executeCommand(command: string, failedSeverity: string, failureM
         }
 
         if (failureMessage) {
-            console.error(`Jacked command failed: ${failureMessage}`);
-            process.exit(1); // Exit the process with a non-zero status code to indicate failure
+            console.log(`Jacked assessment is failed. Please see recommendation to fix vulnerabilities`)
+            exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
-        process.exit(0); // Exit the process with a zero status code to indicate success
+        exit(0); // Exit the process with a zero status code to indicate success
     });
 
 
