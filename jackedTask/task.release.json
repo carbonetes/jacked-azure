@@ -53,9 +53,9 @@
             "helpMarkDown": "Select a threshold that will fail the build when equal to or above the severity found in the results."
         },
         {
-            "name": "skipFail",
+            "name": "skipBuildFail",
             "type": "boolean",
-            "label": "Skip Fail Build",
+            "label": "Skip Build Fail ",
             "defaultValue": false,
             "required": true,
             "helpMarkDown": "Restrict the plugin from failing the build based on the assessment result."

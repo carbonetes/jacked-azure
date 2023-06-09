@@ -23,10 +23,10 @@ export async function runJackedCommand() {
         ignoreCves: input.getInput("ignoreCves", false) || "",
         ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
         skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
-        skipFail: Boolean(input.getInput("skipFail", false)) || false,
+        skipBuildFail: Boolean(input.getInput("skipBuildFail", false)) || false,
     };
 
-    console.log("Checking Skip Build Fail: ", inputs.skipFail);
+    console.log("Checking Skip Build Fail: ", inputs.skipBuildFail);
 
 
     const args: string[] = [];
@@ -90,11 +90,11 @@ export async function runJackedCommand() {
     }
 
     const failedSeverity = inputs.failCriteria;
-    const skipFail = inputs.skipFail;
+    const skipBuildFail = inputs.skipBuildFail;
     const failureMessage = `Error running '${JACKED}' command`;
 
     try {
-        executeCommand(command, failedSeverity, failureMessage, skipFail);
+        executeCommand(command, failedSeverity, failureMessage, skipBuildFail);
     } catch (error) {
         return error;
     }

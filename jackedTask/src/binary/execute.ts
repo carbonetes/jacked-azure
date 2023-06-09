@@ -9,7 +9,7 @@ export function executeCommand(
     command: string,
     failedSeverity: string,
     failureMessage: string,
-    skipFail: boolean
+    skipBuildFail: boolean
 ): void {
     const homeDir = homedir();
     const jackedBinaryPath = path.join(homeDir, 'jacked');
@@ -51,7 +51,8 @@ export function executeCommand(
         exit(1);
     });
     childProcess.on('exit', (code) => {
-        console.log("***Checking Skip Build Fail: " + skipFail);
+        let exitStatus = 0;
+        console.log("***Checking Skip Build Fail: " + skipBuildFail);
         if (code === 0) {
 
             console.log(
@@ -64,7 +65,7 @@ export function executeCommand(
             exit(0);
 
         } else {
-            if (skipFail == true) {
+            if (skipBuildFail) {
                 console.log(
                     Styles.FgCyan +
                     Styles.Bold +
@@ -86,11 +87,9 @@ export function executeCommand(
                 Strings.RECOMMENDATION +
                 Styles.Reset
             );
-        }
 
-        if (skipFail) {
-            exit(0);
+            exitStatus = 1;
         }
-        exit(1);
+        exit(exitStatus);
     });
 }

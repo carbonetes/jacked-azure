@@ -80,7 +80,7 @@
             "helpMarkDown": "Skip Database Update Checking."
         },
         {
-            "name": "skipFail",
+            "name": "skipBuildFail",
             "type": "boolean",
             "label": "Skip Fail Build",
             "defaultValue": false,
