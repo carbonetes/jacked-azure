@@ -53,12 +53,17 @@ export function executeCommand(command: string, successMessage: string, failureM
             .filter((log) => log !== '');
 
         // Print the logs in the correct order
+        let failed = false;
         for (const log of logs) {
             console.log(log);
             if (log.includes('Failed:')) {
                 console.error(`${failureMessage}: ${log}`);
-                process.exit(1); // Exit the process with a non-zero status code to indicate failure
+                failed = true;
             }
+        }
+
+        if (failed) {
+            process.exit(1); // Exit the process with a non-zero status code to indicate failure
         }
 
     });
