@@ -83,8 +83,8 @@
             "name": "skipFail",
             "type": "boolean",
             "label": "Skip Fail Build",
-            "defaultValue": "false",
-            "required": false,
+            "defaultValue": false,
+            "required": true,
             "helpMarkDown": "Restrict the plugin from failing the build based on the assessment result."
         }
     ],
