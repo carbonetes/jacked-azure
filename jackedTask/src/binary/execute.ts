@@ -54,7 +54,7 @@ export function executeCommand(
 
     childProcess.on('exit', (code) => {
         // Skip fail is true, exit 0
-        if (code === 0) {
+        if (code == 0) {
 
             console.log(
                 Styles.FgGreen +
@@ -74,7 +74,7 @@ export function executeCommand(
             );
             if (!skipFail) {
                 exit(1);
-            } else {
+            } else if (skipFail) {
 
                 console.log(
                     Styles.FgCyan +
