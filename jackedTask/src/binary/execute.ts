@@ -78,9 +78,12 @@ export function executeCommand(
                 Styles.FgRed +
                 Styles.Bold +
                 Strings.JACKEDASSESSMENT +
+                Common.FAILED +
+                Common.NEXTLINE +
+                Strings.FAILCRITERIA +
+                failedSeverity +
                 Common.NEXTLINE +
                 Strings.RECOMMENDATION +
-                Common.FAILED +
                 Styles.Reset
             );
         }
