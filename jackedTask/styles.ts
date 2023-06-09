@@ -19,12 +19,14 @@ export enum Styles {
 export enum Common {
     error = "\x1b[31mERROR \x1b[0m",
     info = "\x1b[36mINFO \x1b[0m",
-    success = "\x1b[32mSUCCESS \x1b[0m"
+    success = "\x1b[32mSUCCESS \x1b[0m",
+    PASSED = "\x1b[32mPASSED \x1b[0m",
+    FAILED = "\x1b[31mFAILED \x1b[0m"
 }
 
 export enum Strings {
     JACKEDASSESSMENT = "Jacked Assessment: ",
     RECOMMENDATION = "Please see recommendations to fix vulnerabilities.",
-    PASSED = "Passed",
-    FAILED = "Failed"
+    NOTE = "NOTE: ",
+    SKIPFAILBUILD = "SKIP BUILD FAIL IS ON"
 }

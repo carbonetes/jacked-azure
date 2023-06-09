@@ -56,25 +56,35 @@ export function executeCommand(
         // Skip fail is true, exit 0
         if (code === 0) {
 
-            console.error(
+            console.log(
                 Common.success + '\n' +
-                Strings.JACKEDASSESSMENT +
-                Strings.PASSED +
                 Styles.FgGreen +
-                Styles.Bold  
+                Styles.Bold  +
+                Strings.JACKEDASSESSMENT +
+                Common.PASSED +
+                Styles.Reset
             );
             exit(0);
         } else {
             console.error(
                 Common.error + '\n' +
-                Strings.JACKEDASSESSMENT +
-                Strings.FAILED +
                 Styles.FgRed +
-                Styles.Bold 
+                Styles.Bold +
+                Strings.JACKEDASSESSMENT +
+                Common.FAILED +
+                Styles.Reset
             );
             if (!skipFail) {
                 exit(1);
             } else {
+
+                console.log(
+                    Styles.FgCyan +
+                    Styles.Bold +
+                    Strings.NOTE +
+                    Strings.SKIPFAILBUILD +
+                    Styles.Reset
+                );
                 exit(0);
             }
         }
