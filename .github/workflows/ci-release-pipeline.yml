@@ -51,3 +51,4 @@ jobs:
       run: |
         tfx extension publish -t ${{ secrets.AzureMarketplaceToken }} --manifests vss-extension.json
         
+ 
