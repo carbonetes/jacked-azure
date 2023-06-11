@@ -37,6 +37,11 @@
           "path": "LICENSE"
         }
     },
+    "contributors": [
+        {
+            "name": "Sairen Christian Buerano"
+        }
+    ],
     "contributions": [
         {
             "id": "jacked",
@@ -53,9 +58,6 @@
                     ]
                 }
             }
-        },
-        {
-            "name": "Sairen Christian Buerano"
         }
     ],
     "public" : true
