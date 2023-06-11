@@ -2,8 +2,8 @@
     "manifestVersion": 1,
     "id": "jacked",
     "name": "Jacked",
-    "version": "1.0.13",
-    "publisher": "SairenChristianBuerano",
+    "version": "1.0.0",
+    "publisher": "Carbonetes",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
@@ -55,5 +55,5 @@
             }
         }
     ],
-    "public" : false
+    "public" : true
 }

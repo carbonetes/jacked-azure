@@ -27,7 +27,7 @@ jobs:
 
     - name: Bump version in Manifest
       run: |
-        current_version=$(tfx extension show -t ${{ secrets.AzureMarketplaceToken }} --publisher SairenChristianBuerano --extension-id jacked --output json | jq '.versions | .[0].version')
+        current_version=$(tfx extension show -t ${{ secrets.AzureMarketplaceToken }} --publisher Carbonetes --extension-id jacked --output json | jq '.versions | .[0].version')
         current_version=$(if [ $current_version == "null" ]; then echo "1.0.0"; else echo $current_version; fi)
         current_version=$(echo $current_version | sed -e 's/^"//' -e 's/"$//')
         new_version=$(semver -i $current_version)
@@ -36,7 +36,7 @@ jobs:
 
     - name: Update Version in Task Manifest
       run: |
-        current_version=$(tfx extension show -t ${{ secrets.AzureMarketplaceToken }} --publisher SairenChristianBuerano --extension-id jacked --output json | jq -r '.versions[0].version')
+        current_version=$(tfx extension show -t ${{ secrets.AzureMarketplaceToken }} --publisher Carbonetes --extension-id jacked --output json | jq -r '.versions[0].version')
         major=$(jq '.version.Major' jackedTask/task.json)
         minor=$(jq '.version.Minor' jackedTask/task.json)
         patch=$(jq '.version.Patch' jackedTask/task.json)
