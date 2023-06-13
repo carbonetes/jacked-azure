@@ -1,3 +1,10 @@
+<p align="center">
+<img src="images/logo.png">
+</p>
+
+[![Carbonetes-Jacked](https://img.shields.io/badge/carbonetes-jacked-%232f7ea3)](https://github.com/carbonetes/jacked)
+![Jacked-Azure](https://img.shields.io/badge/jacked-azure--devops--plugin-%232f7ea3)
+
 # Azure DevOps Plugin: Jacked
 
 ## Introduction
