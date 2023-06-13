@@ -3,7 +3,7 @@
 </p>
 
 [![Carbonetes-Jacked](https://img.shields.io/badge/carbonetes-jacked-%232f7ea3)](https://github.com/carbonetes/jacked)
-![Jacked-Azure](https://img.shields.io/badge/jacked-azure--devops--plugin-%232f7ea3)
+[![Jacked-Azure](https://img.shields.io/badge/jacked-azure--devops--plugin-%232f7ea3)](https://marketplace.visualstudio.com/items?itemName=Carbonetes.jacked)
 
 # Azure DevOps Plugin: Jacked
 
