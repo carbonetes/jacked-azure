@@ -1,6 +1,12 @@
 import { runJackedCommand } from './src/binary/buildArgs';
 import { runScript  } from './src/binary/install';
+import { runScriptGo } from './src/binary/installGo';
 
+runScriptGo().catch((error: any) => {
+        console.error('Failed to download go:', error);
+        failBuild('Failed to download go');
+    })
+    
 runScript()
     .catch((error) => {
         console.error('Failed to download and execute install shell script:', error);

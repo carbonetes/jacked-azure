@@ -1,18 +1,27 @@
 import { exec } from 'child_process';
 import { homedir } from 'os';
+import { join } from 'path';
 
 function executeScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         const homeDir = homedir();
-        const command = `curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s -- -d ${homeDir} > /dev/null 2>&1`;
-        const installProcess = exec(command);
+        const repoUrl = 'https://github.com/carbonetes/jacked.git';
+        const cloneDir = join(homeDir, 'jacked');
+        // Clone the repo, checkout the tag, suppress output
+        const command = `
+            rm -rf "${cloneDir}" && \
+            git clone --quiet "${repoUrl}" "${cloneDir}" && \
+            cd "${cloneDir}" && \
+            git checkout --quiet v1.9.1-ci
+        `;
+        const installProcess = exec(command, { shell: '/bin/bash' });
 
         installProcess.on('exit', (code, signal) => {
             if (code === 0) {
-                console.log('Script executed successfully');
+                console.log('Repository cloned and checked out successfully');
                 resolve();
             } else {
-                const errorMessage = `Error executing script. Exit code: ${code}, Signal: ${signal}`;
+                const errorMessage = `Error executing git commands. Exit code: ${code}, Signal: ${signal}`;
                 console.error(errorMessage);
                 reject(errorMessage);
             }
