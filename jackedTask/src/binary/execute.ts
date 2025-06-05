@@ -60,8 +60,6 @@ export function executeCommand(
     });
 
     childProcess.stderr?.on('data', (data) => {
-        const log = data.toString().trim();
-        console.error(log);
     });
 
     childProcess.on('error', (error) => {
