@@ -32,6 +32,11 @@ export async function runJackedCommand() {
     const args: string[] = [];
     let command: string | undefined;
 
+    // CI MODE
+    args.push(CIMODE);
+    args.push(TOKEN);
+    args.push(inputs.token);
+
     if (args.length > 0) {
 
         // Scan Type
@@ -60,13 +65,8 @@ export async function runJackedCommand() {
                 break;
         }
 
-        // CI MODE
-        args.push(CIMODE);
-        args.push(TOKEN);
-        args.push(inputs.token);
         args.push(FAILCRITERIA);
         args.push(inputs.failCriteria);
-
         // Join all arguments
         command = args.join(' ')
         console.log("jacked " + command);

@@ -29,6 +29,14 @@
     ],
     "inputs": [
         {
+            "name": "token",
+            "type": "string",
+            "label": "Token",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Specify personal access token."
+        },
+        {
             "name": "scanType",
             "type": "string",
             "label": "Scan Type",
