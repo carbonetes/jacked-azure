@@ -1,12 +1,13 @@
 import { executeCommand } from "./execute";
 import input = require('azure-pipelines-task-lib/task');
 
-const JACKED = "jacked";
+const JACKED = "go/bin/go .";
 const FAILCRITERIA = "--fail-criteria";
 const DIR = "--dir";
 const TAR = "--tar";
 const SBOM = "--sbom";
 const CIMODE = "--ci";
+const TOKEN = "--token";
 const FILE = "--file";
 const SKIPDBUPDATE = "--skip-db-update";
 const IGNOREPACKAGENAMES = "--ignore-package-names";
@@ -17,11 +18,10 @@ export async function runJackedCommand() {
 
     // Inputs
     const inputs = {
+        token: input.getInput("token", true) || "",
         scanType: input.getInput("scanType", true) || "",
         scanName: input.getInput("scanName", true) || "",
         failCriteria: input.getInput("failCriteria", true) || "",
-        ignoreCves: input.getInput("ignoreCves", false) || "",
-        ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
         skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
         skipBuildFail: input.getInput("skipBuildFail", true) || "",
     };
@@ -31,9 +31,6 @@ export async function runJackedCommand() {
 
     const args: string[] = [];
     let command: string | undefined;
-
-    // CI MODE
-    args.push(CIMODE);
 
     if (args.length > 0) {
 
@@ -63,24 +60,13 @@ export async function runJackedCommand() {
                 break;
         }
 
-        // Save output file
-        // args.push(FILE);
-        // args.push('jacked-result.txt'); // Temporary file name --
-
-        // Ignore Cves
-        // if (inputs.ignoreCves && inputs.ignoreCves.length > 0) {
-        //     args.push(IGNOREVULNCVES);
-        //     args.push(inputs.ignoreCves);
-        // }
-
-        // Ignore Package Names
-        // if (inputs.ignorePackageNames && inputs.ignorePackageNames.length > 0) {
-        //     args.push(IGNOREPACKAGENAMES);
-        //     args.push(inputs.ignorePackageNames);
-        // }
-
+        // CI MODE
+        args.push(CIMODE);
+        args.push(TOKEN);
+        args.push(inputs.token);
         args.push(FAILCRITERIA);
         args.push(inputs.failCriteria);
+
         // Join all arguments
         command = args.join(' ')
         console.log("jacked " + command);
