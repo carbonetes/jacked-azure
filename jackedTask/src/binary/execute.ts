@@ -43,8 +43,9 @@ export function executeCommand(
         console.log(`Executable permission set for binary at ${binaryPath}`);
     }
 
+    const repoDir = path.join(homeDir, 'jacked');
     const execOptions: ExecOptions = {
-        cwd: '.',
+        cwd: repoDir, // <-- Set working directory to the cloned repo
         maxBuffer: 1024 * 1024 * 250, // 250MB
         shell: '/bin/bash',
     };
