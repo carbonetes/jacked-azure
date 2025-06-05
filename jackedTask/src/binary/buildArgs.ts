@@ -32,6 +32,7 @@ export async function runJackedCommand() {
     const args: string[] = [];
     let command: string | undefined;
 
+    args.push("run"); 
     args.push("."); 
     // CI MODE
     args.push(CIMODE);
