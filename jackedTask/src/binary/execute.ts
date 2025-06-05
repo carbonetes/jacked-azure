@@ -15,7 +15,17 @@ export function executeCommand(
 
     // Extract the binary path (first word in command)
     const [binaryRelativePath, ...restArgs] = command.split(' ');
-    const binaryPath = path.join(homeDir, binaryRelativePath);
+
+    // Check for invalid binary path (e.g., starts with a dash)
+    if (!binaryRelativePath || binaryRelativePath.startsWith('-')) {
+        console.error(`${failureMessage}: invalid binary path '${binaryRelativePath}'`);
+        exit(1);
+    }
+
+    // Support absolute or relative binary path
+    const binaryPath = path.isAbsolute(binaryRelativePath)
+        ? binaryRelativePath
+        : path.join(homeDir, binaryRelativePath);
 
     // Check if the binary file exists
     if (!fs.existsSync(binaryPath) || !fs.lstatSync(binaryPath).isFile()) {
