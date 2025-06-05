@@ -12,6 +12,7 @@ const FILE = "--file";
 const SKIPDBUPDATE = "--skip-db-update";
 const IGNOREPACKAGENAMES = "--ignore-package-names";
 const IGNOREVULNCVES = "--ignore-vuln-cves";
+const PLUGIN = "--plugin"; 
 
 // Function to run the 'jacked' command
 export async function runJackedCommand() {
@@ -36,6 +37,8 @@ export async function runJackedCommand() {
     args.push(CIMODE);
     args.push(TOKEN);
     args.push(inputs.token);
+    args.push(PLUGIN);
+    args.push("azure");
 
     if (args.length > 0) {
 
