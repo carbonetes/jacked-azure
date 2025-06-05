@@ -60,5 +60,5 @@
             }
         }
     ],
-    "public" : false
+    "public" : true
 }
