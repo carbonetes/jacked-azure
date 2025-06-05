@@ -59,7 +59,8 @@ export function executeCommand(
     });
 
     childProcess.stderr?.on('data', (data) => {
-        // Ignore stderr output
+        const log = data.toString().trim();
+        console.error(log);
     });
 
     childProcess.on('error', (error) => {
