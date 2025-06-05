@@ -1,7 +1,7 @@
 import { executeCommand } from "./execute";
 import input = require('azure-pipelines-task-lib/task');
 
-const JACKED = "go/bin/go";
+const JACKED = "jacked"; // The installed binary name
 const FAILCRITERIA = "--fail-criteria";
 const DIR = "--dir";
 const TAR = "--tar";
@@ -32,8 +32,6 @@ export async function runJackedCommand() {
     const args: string[] = [];
     let command: string | undefined;
 
-    args.push("run"); 
-    args.push("."); 
     // CI MODE
     args.push(CIMODE);
     args.push(TOKEN);
