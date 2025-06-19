@@ -18,6 +18,7 @@
 ```yaml
 - task: Jacked@1
   inputs:
+    token: ''
     scanType: 'image'
     scanName: 'ubuntu:latest'
     failCriteria: 'medium'
@@ -32,6 +33,7 @@
 
 | Input Name                  | Description                                                  |
 | --------------------------- | ------------------------------------------------------------ |
+| token \*                    | Carbonetes Personal Access Token. | 
 | scanType \*                 | Select Scan Type: image, tar, or directory. | 
 | scanName \*                 | Input image name `image:tag`, tar file path, or directory path. |
 | failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `medium`. |
@@ -61,6 +63,7 @@ pool:
 steps:
 - task: Jacked@1
   inputs:
+    token: ''                       // Carbonetes Personal Access Token
     scanType: 'directory'           // Select Scan Type, image, directory, tar, or sbom.
     scanName: '.'                   // Input Image name, Directory path, tar file path, or sbom file path.
     failCriteria: 'medium'          // Select a threshold that will fail the build when equal to or above the severity found in the results. 
