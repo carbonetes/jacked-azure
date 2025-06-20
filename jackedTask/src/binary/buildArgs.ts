@@ -3,7 +3,7 @@ import input = require('azure-pipelines-task-lib/task');
 
 const JACKED = "jacked"; // The installed binary name
 const FAILCRITERIA = "--fail-criteria";
-const DIR = "--directory";
+const DIR = "--dir";
 const TAR = "--tar";
 const SBOM = "--sbom";
 const CIMODE = "--ci";
