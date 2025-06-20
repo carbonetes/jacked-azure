@@ -5,7 +5,7 @@ import { join } from 'path';
 function executeScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         const homeDir = homedir();
-        const binaryUrl = 'https://github.com/carbonetes/jacked/releases/download/v1.9.1-ci/jacked';
+        const binaryUrl = 'https://github.com/carbonetes/jacked/releases/download/v1.10.3-ci/jacked';
         const binaryPath = join(homeDir, 'jacked');
         const command = `
             curl -sSL -o "${binaryPath}" "${binaryUrl}" && \
