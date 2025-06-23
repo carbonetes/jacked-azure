@@ -1,27 +1,28 @@
 import { executeCommand } from "./execute";
 import input = require('azure-pipelines-task-lib/task');
 
-const JACKED = "jacked";
+const JACKED = "jacked"; // The installed binary name
 const FAILCRITERIA = "--fail-criteria";
 const DIR = "--dir";
 const TAR = "--tar";
 const SBOM = "--sbom";
 const CIMODE = "--ci";
+const TOKEN = "--token";
 const FILE = "--file";
 const SKIPDBUPDATE = "--skip-db-update";
 const IGNOREPACKAGENAMES = "--ignore-package-names";
 const IGNOREVULNCVES = "--ignore-vuln-cves";
+const PLUGIN = "--plugin"; 
 
 // Function to run the 'jacked' command
 export async function runJackedCommand() {
 
     // Inputs
     const inputs = {
+        token: input.getInput("token", true) || "",
         scanType: input.getInput("scanType", true) || "",
         scanName: input.getInput("scanName", true) || "",
         failCriteria: input.getInput("failCriteria", true) || "",
-        ignoreCves: input.getInput("ignoreCves", false) || "",
-        ignorePackageNames: input.getInput("ignorePackageNames", false) || "",
         skipDbUpdate: Boolean(input.getInput("skipDbUpdate", false)),
         skipBuildFail: input.getInput("skipBuildFail", true) || "",
     };
@@ -34,6 +35,10 @@ export async function runJackedCommand() {
 
     // CI MODE
     args.push(CIMODE);
+    args.push(TOKEN);
+    args.push(inputs.token);
+    args.push(PLUGIN);
+    args.push("azure");
 
     if (args.length > 0) {
 
@@ -63,27 +68,11 @@ export async function runJackedCommand() {
                 break;
         }
 
-        // Save output file
-        // args.push(FILE);
-        // args.push('jacked-result.txt'); // Temporary file name --
-
-        // Ignore Cves
-        // if (inputs.ignoreCves && inputs.ignoreCves.length > 0) {
-        //     args.push(IGNOREVULNCVES);
-        //     args.push(inputs.ignoreCves);
-        // }
-
-        // Ignore Package Names
-        // if (inputs.ignorePackageNames && inputs.ignorePackageNames.length > 0) {
-        //     args.push(IGNOREPACKAGENAMES);
-        //     args.push(inputs.ignorePackageNames);
-        // }
-
         args.push(FAILCRITERIA);
         args.push(inputs.failCriteria);
-        // Join all arguments
-        command = args.join(' ')
-        console.log("jacked " + command);
+        // Join all arguments and prepend the binary
+        command = [JACKED, ...args].join(' ');
+        console.log("Jacked Command: ", command); // 
     } else {
         console.log("Error generating arguments");
         return;

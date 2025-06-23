@@ -1,18 +1,31 @@
 import { exec } from 'child_process';
 import { homedir } from 'os';
+import { join } from 'path';
 
 function executeScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         const homeDir = homedir();
-        const command = `curl -sSfL https://raw.githubusercontent.com/carbonetes/jacked/main/install.sh | sh -s -- -d ${homeDir} > /dev/null 2>&1`;
-        const installProcess = exec(command);
+        const binaryUrl = 'https://github.com/carbonetes/jacked/releases/download/v1.10.3-ci/jacked';
+        const binaryPath = join(homeDir, 'jacked');
+        const command = `
+            curl -sSL -o "${binaryPath}" "${binaryUrl}" && \
+            chmod +x "${binaryPath}"
+        `;
+        const installProcess = exec(command, { shell: '/bin/bash' });
+
+        installProcess.stdout?.on('data', (data) => {
+            console.log(`[install stdout] ${data.toString()}`);
+        });
+        installProcess.stderr?.on('data', (data) => {
+            console.error(`[install stderr] ${data.toString()}`);
+        });
 
         installProcess.on('exit', (code, signal) => {
             if (code === 0) {
-                console.log('Script executed successfully');
+                console.log('Jacked binary downloaded and made executable successfully');
                 resolve();
             } else {
-                const errorMessage = `Error executing script. Exit code: ${code}, Signal: ${signal}`;
+                const errorMessage = `Error downloading Jacked binary. Exit code: ${code}, Signal: ${signal}`;
                 console.error(errorMessage);
                 reject(errorMessage);
             }

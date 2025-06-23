@@ -12,49 +12,66 @@ export function executeCommand(
     skipBuildFail: string
 ): void {
     const homeDir = homedir();
-    const jackedBinaryPath = path.join(homeDir, 'jacked');
 
-    // Check if the 'jacked' binary file exists
-    if (!fs.existsSync(jackedBinaryPath) || !fs.lstatSync(jackedBinaryPath).isFile()) {
-        console.error(`${failureMessage}: 'jacked' binary not found`);
+    // Extract the binary path (first word in command)
+    const [binaryRelativePath, ...restArgs] = command.split(' ');
+
+    // Check for invalid binary path (e.g., starts with a dash)
+    if (!binaryRelativePath || binaryRelativePath.startsWith('-')) {
+        console.error(`${failureMessage}: invalid binary path '${binaryRelativePath}'`);
         exit(1);
     }
 
-    // Check the permissions of the 'jacked' binary
-    const permissions = fs.statSync(jackedBinaryPath).mode;
+    // Support absolute or relative binary path
+    const binaryPath = path.isAbsolute(binaryRelativePath)
+        ? binaryRelativePath
+        : path.join(homeDir, binaryRelativePath);
+
+    // Check if the binary file exists
+    if (!fs.existsSync(binaryPath) || !fs.lstatSync(binaryPath).isFile()) {
+        console.error(`${failureMessage}: binary not found at ${binaryPath}`);
+        exit(1);
+    }
+
+    // Check the permissions of the binary
+    const permissions = fs.statSync(binaryPath).mode;
     const isExecutable = (permissions & fs.constants.S_IXUSR) !== 0;
 
     // Set executable permission if necessary
     if (!isExecutable) {
-        fs.chmodSync(jackedBinaryPath, '755');
-        console.log(`Executable permission set for 'jacked' binary`);
+        fs.chmodSync(binaryPath, '755');
+        console.log(`Executable permission set for binary at ${binaryPath}`);
     }
 
+    // Set working directory to current directory
     const execOptions: ExecOptions = {
-        cwd: '.',
-        maxBuffer: 1024 * 1024 * 250, // Set a higher value for maxBuffer (e.g., 250MB)
+        cwd: '.', // or another directory if needed
+        maxBuffer: 1024 * 1024 * 250, // 250MB
         shell: '/bin/bash',
     };
 
-    const childProcess = exec(`${jackedBinaryPath} ${command}`, execOptions);
+    // Build the command string with the absolute binary path
+    const fullCommand = [binaryPath, ...restArgs].join(' ');
+
+    const childProcess = exec(fullCommand, execOptions);
     childProcess.stdout?.on('data', (data) => {
         const log = data.toString().trim();
         console.log(log);
     });
 
     childProcess.stderr?.on('data', (data) => {
-        // Ignore stderr output
+        const log = data.toString().trim();
+        console.error(log);
     });
 
     childProcess.on('error', (error) => {
-        console.error(`Error running 'jacked' command: ${error.message}`);
+        console.error(`Error running command: ${error.message}`);
         exit(1);
     });
     childProcess.on('exit', (code) => {
         let exitStatus = 0;
         console.log("***Checking Skip Build Fail: " + skipBuildFail);
         if (code === 0) {
-
             console.log(
                 Styles.FgGreen +
                 Styles.Bold  +
@@ -63,7 +80,6 @@ export function executeCommand(
                 Styles.Reset
             );
             exit(0);
-
         } else {
             // Display fail
             console.error(

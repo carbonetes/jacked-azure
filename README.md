@@ -26,6 +26,7 @@ steps:
 - task: Jacked@1
   inputs:
     token: ''
+    token: ''
     scanType: 'image'
     scanName: 'ubuntu:latest'
     failCriteria: 'medium'
@@ -128,6 +129,7 @@ pool:
 steps:
 - task: Jacked@1
   inputs:
+    token: ''                       // Carbonetes Personal Access Token
     scanType: 'directory'           // Select Scan Type, image, directory, tar, or sbom.
     scanName: '.'                   // Input Image name, Directory path, tar file path, or sbom file path.
     failCriteria: 'medium'          // Select a threshold that will fail the build when equal to or above the severity found in the results. 
