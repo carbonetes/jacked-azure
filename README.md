@@ -11,18 +11,84 @@
 
 **[Jacked](https://github.com/carbonetes/jacked)** provides organizations with a more comprehensive look at their application to take calculated actions and create a better security approach. Its primary purpose is to scan vulnerabilities to implement subsequent risk mitigation measures.
 
-## Task Usage
+## Pipeline Scripts: Image, Tar File, and Directory.
 
-### Docker image scan example
+### Image Scanning Pipeline Script:
 
 ```yaml
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
 - task: Jacked@1
   inputs:
+    token: ''
     token: ''
     scanType: 'image'
     scanName: 'ubuntu:latest'
     failCriteria: 'medium'
     skipBuildFail: 'false'
+```
+
+### Tar File Scanning Pipeline Script:
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    echo "Pulling Docker image: ubuntu"
+    docker pull ubuntu
+    echo "Saving image to ubuntu.tar"
+    docker save ubuntu -o ubuntu.tar
+  displayName: 'Pull and Save Docker Image'
+
+- script: |
+    echo "Listing generated tar file..."
+    ls -lh ubuntu.tar
+  displayName: 'List Tar File'
+
+- task: Jacked@1
+  inputs:
+    token: ''
+    scanType: 'tar'
+    scanName: 'ubuntu.tar'
+    failCriteria: 'medium'
+    skipBuildFail: 'false'
+
+```
+
+
+### Cloned Repository Directory Scanning Script:
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    echo "Listing contents of the repository..."
+    ls -la $(Build.SourcesDirectory)
+  displayName: 'List Repo Directory'
+
+- task: Jacked@1
+  inputs:
+    token: ''
+    scanType: 'directory'
+    scanName: '$(Build.SourcesDirectory)'
+    failCriteria: 'medium'
+    skipBuildFail: 'false'
+
 ```
 
 ## Prerequisites
