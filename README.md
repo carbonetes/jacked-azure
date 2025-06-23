@@ -99,7 +99,7 @@ steps:
 
 | Input Name                  | Description                                                  |
 | --------------------------- | ------------------------------------------------------------ |
-| token \*                 | Carbonetes Personal Access Token. | 
+| token \*                    | Carbonetes Personal Access Token. | 
 | scanType \*                 | Select Scan Type: image, tar, or directory. | 
 | scanName \*                 | Input image name `image:tag`, tar file path, or directory path. |
 | failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `medium`. |
