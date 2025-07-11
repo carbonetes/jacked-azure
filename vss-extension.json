@@ -22,7 +22,7 @@
         "Utility Task"
     ],
     "icons": {
-        "default": "images/logo.png"
+        "default": "assets/logo.png"
     },
     "files": [
         {
