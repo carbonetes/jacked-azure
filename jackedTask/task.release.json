@@ -4,7 +4,7 @@
     "name": "Jacked",
     "friendlyName": "Jacked",
     "description": "Vulnerability Scanner",
-    "helpUrl": "https://carbonetes.com/features",
+    "helpUrl": "https://github.com/carbonetes/jacked-azure",
     "helpMarkDown": "[Learn more about this task](https://marketplace.visualstudio.com/items?itemName=Carbonetes.carbonetes-comprehensive-analysis)",
     "category": "Utility",
     "author": "Carbonetes",

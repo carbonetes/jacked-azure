@@ -7,7 +7,6 @@ import { constants } from '../../../constants/constants'
 
 export function executeCommand(
     command: string,
-    failedSeverity: string,
     failureMessage: string,
     skipBuildFail: string
 ): void {
@@ -15,7 +14,7 @@ export function executeCommand(
 
     const [binaryRelativePath, ...restArgs] = command.split(' ');
 
-    if (!binaryRelativePath || binaryRelativePath.startsWith('-')) {
+    if (!binaryRelativePath) {
         console.error(`${failureMessage}: invalid binary path '${binaryRelativePath}'`);
         exit(1);
     }

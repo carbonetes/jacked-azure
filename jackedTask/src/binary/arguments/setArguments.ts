@@ -21,7 +21,7 @@ const ENVIRONMENT = "--environment-type"
 // Function to run the 'jacked' command
 export async function setArguments() {
 
-    let failureMessage = `${constants.CI_FAILURE} Error running '${JACKED}' command`;
+    let failureMessage = `${constants.CI_FAILURE} `;
 
     const inputs = await getInputs()
     let failedSeverity = inputs.failCriteria;
@@ -73,7 +73,7 @@ export async function setArguments() {
 
 
     try {
-        executeCommand(command, failedSeverity, failureMessage, skipBuildFail);
+        executeCommand(command, failureMessage, skipBuildFail);
     } catch (error) {
         return error;
     }
