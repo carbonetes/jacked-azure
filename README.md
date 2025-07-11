@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/logo.png">
+<img src="assets/logo.png">
 </p>
 
 [![Carbonetes-Jacked](https://img.shields.io/badge/carbonetes-jacked-%232f7ea3)](https://github.com/carbonetes/jacked)
@@ -58,7 +58,7 @@ steps:
 - task: Jacked@1
   inputs:
     token: ''
-    scanType: 'tar'
+    scanType: 'tarball'
     scanName: 'ubuntu.tar'
     failCriteria: 'medium'
     skipBuildFail: 'false'
@@ -84,7 +84,7 @@ steps:
 - task: Jacked@1
   inputs:
     token: ''
-    scanType: 'directory'
+    scanType: 'filesystem'
     scanName: '$(Build.SourcesDirectory)'
     failCriteria: 'medium'
     skipBuildFail: 'false'
@@ -100,10 +100,10 @@ steps:
 | Input Name                  | Description                                                  |
 | --------------------------- | ------------------------------------------------------------ |
 | token \*                    | Carbonetes Personal Access Token. | 
-| scanType \*                 | Select Scan Type: image, tar, or directory. | 
-| scanName \*                 | Input image name `image:tag`, tar file path, or directory path. |
+| scanType \*                 | Choose: image, filesystem, or tarball. | 
+| scanName \*                 | Input image name `image:tag`, filesystem directory path, or tarball file path. |
 | failCriteria \*             | Input a severity that will be found at or above given severity([unknown negligible low medium high critical]). Default: `medium`. |
-| skipBuildFail \*            | Default as false. Skip build to fail based on the assessment. |
+| skipBuildFail \*            | Default false. Warning: If the value is true, it will restrict the plugin from failing the build based on the analysis result.
 
 _\* = required inputs._
 
@@ -129,16 +129,16 @@ pool:
 steps:
 - task: Jacked@1
   inputs:
-    token: ''                       // Carbonetes Personal Access Token
-    scanType: 'directory'           // Select Scan Type, image, directory, tar, or sbom.
-    scanName: '.'                   // Input Image name, Directory path, tar file path, or sbom file path.
-    failCriteria: 'medium'          // Select a threshold that will fail the build when equal to or above the severity found in the results. 
+    token: ''                       // Personal Access Token
+    scanType: 'image'               // Choose: image, filesystem, or tarball.
+    scanName: 'carbonetes/broker'   // Input image:tag, filesystem directory path, or tarball file path.
+    failCriteria: 'high'            // Select a threshold that will fail the build when equal to or above the severity found in the results. 
                                     // Select Severity, critical, high, medium, low, negligible, unknown.
     skipBuildFail: 'false'          // Default as false. Skip build to fail based on the assessment.
 ```
 
 ## Support
-To help with this task extension, or have an issue or feature request, please contact:(eng@carbonetes.com)
+To help with this task extension, or have an issue or feature request, please contact us: [here](github.com/carbonetes/jacked-azure/issues)
 
 If reporting an issue, please include:
 

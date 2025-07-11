@@ -57,10 +57,10 @@
             ],
             "properties": {
                 "name": "jackedTask",
-                "iconAsset": "Jacked.jacked/images/logo.png",
+                "iconAsset": "Jacked.jacked/assets/logo.png",
                 "includesData": {
                     "assets": [
-                        "Jacked.jacked/images/logo.png"
+                        "Jacked.jacked/assets/logo.png"
                     ]
                 }
             }
