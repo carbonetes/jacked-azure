@@ -73,7 +73,6 @@ export function executeCommand(
         let exitStatus = 0;
 
         if (hasFailure && skipBuildFail !== 'true') {
-            console.error(`${failureMessage} detected failure "${constants.CI_FAILURE}"`);
             exitStatus = 1;
         }
 

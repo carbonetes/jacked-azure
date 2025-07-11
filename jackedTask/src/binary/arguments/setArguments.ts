@@ -24,7 +24,6 @@ export async function setArguments() {
     let failureMessage = `${constants.CI_FAILURE} `;
 
     const inputs = await getInputs()
-    let failedSeverity = inputs.failCriteria;
     let skipBuildFail = inputs.skipBuildFail;
     let INPUTVALUE = inputs.scanName;
     let SCANTYPEVALUE = inputs.scanType;
@@ -41,18 +40,26 @@ export async function setArguments() {
     cmdArgs.push(ANALYZER);
     cmdArgs.push(JACKED);
 
-    cmdArgs.push(INPUT);
-    cmdArgs.push(INPUTVALUE);
+    if (INPUTVALUE.length > 0) {
+        cmdArgs.push(INPUT);
+        cmdArgs.push(INPUTVALUE);
+    }
 
-    cmdArgs.push(SCANTYPE);
-    cmdArgs.push(SCANTYPEVALUE);
+    if (SCANTYPEVALUE.length > 0) {
+        cmdArgs.push(SCANTYPE);
+        cmdArgs.push(SCANTYPEVALUE);
+    }
 
-    cmdArgs.push(FAILCRITERIA);
-    cmdArgs.push(SEVERITYTYPEINPUT);
+    if (SEVERITYTYPEINPUT.length > 0) {
+        cmdArgs.push(FAILCRITERIA);
+        cmdArgs.push(SEVERITYTYPEINPUT);
+    }
 
     // API
-    cmdArgs.push(TOKEN);
-    cmdArgs.push(TOKENINPUT);
+    if (TOKENINPUT.length > 0) {
+        cmdArgs.push(TOKEN);
+        cmdArgs.push(TOKENINPUT);
+    }
 
     cmdArgs.push(PLUGIN);
     cmdArgs.push("azure");
