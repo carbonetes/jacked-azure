@@ -62,7 +62,7 @@ export async function setArguments() {
 
 
 
-    if (skipBuildFail) {
+    if (skipBuildFail == "true") {
         cmdArgs.push(SKIPFAIL);
     } else {
         skipBuildFail = "false"
