@@ -74,7 +74,7 @@ export async function setArguments() {
     } else if (skipBuildFail == "false") {
         skipBuildFail = "false"
     } else {
-        console.log(constants.CI_FAILURE + "Invalid input: " + skipBuildFail + " for " + SKIPFAIL + " flag. Choose: true or false.")
+        console.log(constants.CI_FAILURE + "Invalid input: " + skipBuildFail + " for " + SKIPFAIL + " flag. Choose: true or false only.")
     }
 
     command = [...cmdArgs].join(' ');
