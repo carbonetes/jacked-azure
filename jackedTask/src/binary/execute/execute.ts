@@ -15,7 +15,7 @@ export function executeCommand(
     const [binaryRelativePath, ...restArgs] = command.split(' ');
 
     if (!binaryRelativePath) {
-        console.error(`${failureMessage}: invalid binary path '${binaryRelativePath}'`);
+        console.error(`${failureMessage} invalid binary path '${binaryRelativePath}'`);
         exit(1);
     }
 
@@ -24,7 +24,7 @@ export function executeCommand(
         : path.join(homeDir, binaryRelativePath);
 
     if (!fs.existsSync(binaryPath) || !fs.lstatSync(binaryPath).isFile()) {
-        console.error(`${failureMessage}: binary not found at ${binaryPath}`);
+        console.error(`${failureMessage} binary not found at ${binaryPath}`);
         exit(1);
     }
 
@@ -65,7 +65,7 @@ export function executeCommand(
     });
 
     childProcess.on('error', (error) => {
-        console.error(`Error running command: ${error.message}`);
+        console.error(`${failureMessage} Error running command: ${error.message}`);
         exit(1);
     });
 
@@ -73,7 +73,7 @@ export function executeCommand(
         let exitStatus = 0;
 
         if (hasFailure && skipBuildFail !== 'true') {
-            console.error(`${failureMessage}: detected failure "${constants.CI_FAILURE}"`);
+            console.error(`${failureMessage} detected failure "${constants.CI_FAILURE}"`);
             exitStatus = 1;
         }
 

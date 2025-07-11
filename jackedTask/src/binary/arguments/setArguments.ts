@@ -68,7 +68,7 @@ export async function setArguments() {
         skipBuildFail = "false"
     }
 
-    command = [JACKED, ...cmdArgs].join(' ');
+    command = [...cmdArgs].join(' ');
     console.log("Jacked Command: ", command); 
 
 

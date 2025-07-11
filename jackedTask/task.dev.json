@@ -53,7 +53,7 @@
             "label": "Scan",
             "defaultValue": "ubuntu",
             "required": true,
-            "helpMarkDown": "Specify the image name, tar file path, or directory path."
+            "helpMarkDown": "Specify the image:tag, filesystem directory path, or tarball file path."
         },
         {
             "name": "failCriteria",
@@ -64,36 +64,12 @@
             "helpMarkDown": "Select a threshold that will fail the build when equal to or above the severity found in the results. Default is medium"
         },
         {
-            "name": "ignoreCves",
-            "type": "string",
-            "label": "Ignore CVEs",
-            "defaultValue": "cve-2023-2464,cve-2022-3423",
-            "required": false,
-            "helpMarkDown": "Specify the CVEs to ignore."
-        },
-        {
-            "name": "ignorePackageNames",
-            "type": "string",
-            "label": "Ignore Package Names",
-            "defaultValue": "package1,package2",
-            "required": false,
-            "helpMarkDown": "Specify the package names to ignore."
-        },
-        {
-            "name": "skipDbUpdate",
-            "type": "boolean",
-            "label": "Skip Database Update",
-            "defaultValue": "false",
-            "required": false,
-            "helpMarkDown": "Skip Database Update Checking."
-        },
-        {
             "name": "skipBuildFail",
             "type": "string",
             "label": "Skip Build Fail ",
             "defaultValue": "false",
             "required": true,
-            "helpMarkDown": "Restrict the plugin from failing the build based on the assessment result. Default is false."
+            "helpMarkDown": "If the value is checked or true, it will restrict the plugin from failing the build based on the analysis result"
         }
     ],
     "execution": {
