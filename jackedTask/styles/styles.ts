@@ -24,11 +24,3 @@ export enum Common {
     FAILED = "\x1b[31mFAILED \x1b[0m",
     NEXTLINE = "\n"
 }
-
-export enum Strings {
-    JACKEDASSESSMENT = "JACKED ASSESSMENT: ",
-    RECOMMENDATION = "Please see recommendations to fix vulnerabilities.",
-    NOTE = "NOTE: ",
-    SKIPFAILBUILD = "Skip build fail is ON",
-    FAILCRITERIA = "Severity found equal or higher than: "
-}

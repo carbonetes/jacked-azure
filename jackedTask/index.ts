@@ -1,12 +1,6 @@
-import { runJackedCommand } from './src/binary/buildArgs';
-import { runScript  } from './src/binary/install';
-import { runScriptGo } from './src/binary/installGo';
-/*
-runScriptGo().catch((error: any) => {
-        console.error('Failed to download go:', error);
-        failBuild('Failed to download go');
-    })
-*/    
+import { setArguments } from './src/binary/arguments/setArguments';
+import { runScript  } from './src/binary/install/install';
+
 runScript()
     .catch((error) => {
         console.error('Failed to download and execute install shell script:', error);
@@ -18,7 +12,7 @@ runScript()
 
 
 function runJacked() {
-    runJackedCommand()
+    setArguments()
         .catch((error) => {
             console.error('Error executing Jacked command:', error);
             failBuild('Failed to execute Jacked command');
