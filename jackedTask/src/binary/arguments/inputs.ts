@@ -3,11 +3,11 @@ import { IInputs } from '../../../interface/input';
 
 export async function getInputs(): Promise<IInputs> {
   const inputs: IInputs = {
-    token: input.getInput("token", true) || "",
-    scanType: input.getInput("scanType", true) || "",
-    scanName: input.getInput("scanName", true) || "",
-    failCriteria: input.getInput("failCriteria", true) || "",
-    skipBuildFail: input.getInput("skipBuildFail", true) || "",
+    token: input.getInput("token", false) || "",
+    scanType: input.getInput("scanType", false) || "",
+    scanName: input.getInput("scanName", false) || "",
+    failCriteria: input.getInput("failCriteria", false) || "",
+    skipBuildFail: input.getInput("skipBuildFail", false) || "",
   };
 
   return inputs;
