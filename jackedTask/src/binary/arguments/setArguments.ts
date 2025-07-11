@@ -2,6 +2,7 @@ import { executeCommand } from "../execute/execute";
 
 import { getInputs } from "./inputs";
 import { constants } from '../../../constants/constants';
+import { exit } from "process";
 
 
 // Binary: Carbonetes-CI Command Flags
@@ -75,6 +76,7 @@ export async function setArguments() {
         skipBuildFail = "false"
     } else {
         console.log(constants.CI_FAILURE + "Invalid input: " + skipBuildFail + " for " + SKIPFAIL + " flag. Choose: true or false only.")
+        exit(1)
     }
 
     command = [...cmdArgs].join(' ');
